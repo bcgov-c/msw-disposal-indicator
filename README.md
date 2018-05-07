@@ -10,7 +10,7 @@ The data used for the indicator is available from the [B.C. Data Catalogue](http
 
 ### Code
 
-There are two R scripts: `01_load.R` which loads and combines the old and new data, and `02_output.R` which creates the output data files. These need to be run sequentially. There is also one RMarkdown file associated with the indicator.
+There are two R scripts: `01_load.R` which loads and combines the old and new data, and `02_output.R` which creates the output data files. These need to be run sequentially. There is also one RMarkdown file associated with the indicator that generates the data visualizations.
 
 ### Getting Help or Reporting an Issue
 
