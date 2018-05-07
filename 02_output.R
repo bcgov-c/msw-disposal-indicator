@@ -13,10 +13,12 @@
 library(readr)
 library(dplyr)
 
+source("R/helpers.R")
+
 ## Join RD data such as Waste Management Plan links etc. for the visualization
 reports.df <- read_csv('data/rd_report_links.csv')
 
-## Format names and select columns
+## Format names and select columns, check links to MSW report pages
 reports.df <- reports.df %>%
   rename(Regional_District = Local_Govt_Name) %>%
   select(Regional_District, swmPlan, wComposition) %>%
