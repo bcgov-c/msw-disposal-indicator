@@ -4,24 +4,13 @@
 
 A set of R scripts to create the municipal solid waste disposal in B.C. indicator published on [Environmental Reporting BC](https://www2.gov.bc.ca/gov/content?id=B71460AF7A8049D59F8CBA6EE18E93B8).
 
-
 ### Data
 
-The  data used for the indicator is available from the [B.C. Data Catalogue](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) under the [Open Government Licence - British Columbia](https://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61).
-
+The data used for the indicator is available from the [B.C. Data Catalogue](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) under the [Open Government Licence - British Columbia](https://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61). Each year's new disposal rate data are provided by regional districts through the completion of the municipal solid waste disposal calculator run by the Environmental Standards Branch in the Ministry of Environment and Climate Change Strategy.
 
 ### Code
 
-There is one R script and one RMarkdown file associated with the indicator.
-
-Most packages can be installed from CRAN using `install.packages()`, but you will need to install [envreportutils](https://github.com/bcgov/envreportutils) using `remotes`:
-
-```r
-install.packages("remotes") # If you don't already have it installed
-
-library(remotes)
-install_github("bcgov/envreportutils")
-```
+There are two R scripts: `01_load.R` which loads and combines the old and new data, and `02_output.R` which creates the output data files. These need to be run sequentially. There is also one RMarkdown file associated with the indicator.
 
 ### Getting Help or Reporting an Issue
 
