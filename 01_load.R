@@ -23,19 +23,22 @@ url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0
 old_msw <- read_csv(url)
 
 # Add 2016 data -----------------------------------------------------------
+## Data obtained from program area and put in data/ folder
 
-# Skeena-Queen Charlotte is now North Coast:
-old_msw$Regional_District[old_msw$Regional_District == "Skeena-Queen Charlotte"] <- "North Coast"
 
 data_2016 <- read_csv("data/2016_disposal_rates.csv", trim_ws = TRUE, skip = 1) %>%
   filter(Member != "All Entities Total") %>%
   mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
+# Skeena-Queen Charlotte is now North Coast; rename in old_msw before matching up with new:
+old_msw$Regional_District[old_msw$Regional_District == "Skeena-Queen Charlotte"] <- "North Coast"
+
 data_2016 %<>%
   mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 2),
          Year = 2016) %>%
   select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
+
 
 msw <- bind_rows(old_msw, data_2016)
 
