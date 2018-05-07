@@ -14,15 +14,13 @@ The  data used for the indicator is available from the [B.C. Data Catalogue](htt
 
 There is one R script and one RMarkdown file associated with the indicator.
 
-Most packages can be installed from CRAN using `install.packages()`, but you will need to install [envreportutils](https://github.com/bcgov/envreportutils), [bcmaps](https://github.com/bcgov/bcmaps), and [bcmaps.rdata](https://github.com/bcgov/bcmaps.rdata) using remotes:
+Most packages can be installed from CRAN using `install.packages()`, but you will need to install [envreportutils](https://github.com/bcgov/envreportutils) using `remotes`:
 
 ```r
 install.packages("remotes") # If you don't already have it installed
 
 library(remotes)
 install_github("bcgov/envreportutils")
-install_github("bcgov/bcmaps")
-install_github("bcgov/bcmaps.rdata")
 ```
 
 ### Getting Help or Reporting an Issue
