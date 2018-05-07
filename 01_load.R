@@ -1,0 +1,76 @@
+# Copyright 2018 Province of British Columbia
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
+
+library(magrittr)
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+source("R/helpers.R")
+
+# Get current data from BC Data Catalogue:
+url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
+
+old_msw <- read_csv(url)
+
+# Add 2016 data -----------------------------------------------------------
+
+# Skeena-Queen Charlotte is now North Coast:
+old_msw$Regional_District[old_msw$Regional_District == "Skeena-Queen Charlotte"] <- "North Coast"
+
+data_2016 <- read_csv("data/2016_disposal_rates.csv", trim_ws = TRUE, skip = 1) %>%
+  filter(Member != "All Entities Total") %>%
+  mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
+         Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
+
+data_2016 %<>%
+  mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 2),
+         Year = 2016) %>%
+  select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
+
+msw <- bind_rows(old_msw, data_2016)
+
+## Combine Comox and Strathcona -----------------------------------------------
+
+msw %<>%
+  mutate(Regional_District = ifelse(grepl("Comox|Strathcona", Regional_District),
+                                    "Comox-Strathcona", Regional_District)) %>%
+  group_by(Regional_District, Year) %>%
+  summarise(Total_Disposed_Tonnes = sum(Total_Disposed_Tonnes, na.rm = TRUE),
+            Population = sum(Population)) %>%
+  arrange(Regional_District, Year) %>% 
+  ## Remove Stikine
+  filter(Regional_District != "Stikine")
+
+
+# ----------------------------------------------------------------------------
+## Calculate provincial totals and calculate per-capita disposal in kg, and fill in years
+
+msw %<>%
+  group_by(Year) %>%
+  filter(n() > 25) %>% # Only calculate prov totals when more than 25 RDs reported
+  summarise(Regional_District = "British Columbia",
+            Population = sum(Population, na.rm = TRUE),
+            Total_Disposed_Tonnes = sum(Total_Disposed_Tonnes, na.rm = TRUE)) %>%
+  bind_rows(msw, .) %>%
+  ungroup() %>%
+  mutate(Year = as.integer(Year),
+         Population = as.integer(round(Population)),
+         Disposal_Rate_kg = as.integer(round(Total_Disposed_Tonnes / Population * 1000))) %>%
+  fill_years() %>%
+  select(Regional_District, Year, Total_Disposed_Tonnes, Population, Disposal_Rate_kg)
+
+msw %>%
+  filter(Regional_District != "British Columbia") %>%
+  ggplot(aes(x = Year, y = Disposal_Rate_kg)) +
+  geom_point(aes(size = log10(Population))) +
+  facet_wrap(~Regional_District)
