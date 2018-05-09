@@ -3,7 +3,11 @@ topic: sustainability
 title: "Municipal Solid Waste Disposal in B.C. (1990-2016)"
 output: envreportutils.internal::print_ver
 params:
-  input_file: "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
+  input_source:
+    label: "Input Source:"
+    value: bcdc
+    choices: [bcdc,local]
+    input: select
 ---
 <!--
 Copyright 2018 Province of British Columbia
@@ -21,12 +25,24 @@ See the License for the specific language governing permissions and limitations 
 
 
 ```{r set-options, echo=FALSE, message=FALSE, cache=FALSE}
-## If running this locally with data that is not yet published in the BC Data
-# Catalogue, set the input_file paramater in the header to the path to the file
-# "../out/BC_Municipal_Solid_Waste_Disposal.csv"
+# Set the 'Input Source' parameter value (either directly in the header
+# of this file, or through the 'Knit with parameters' menu in RStudio.
+# Set it to to 'bcdc' if you want to build using data sourced from the BC Data 
+# Catalogue, or to 'local' if you want to build it directly from the output of 
+# running 01_load.R and 02_output.R
+
 library(dplyr)
 library(readr)
-msw <- read_csv(params$input_file)
+
+input <- if (params$input_source == "bcdc") {
+  "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
+} else if (params$input_source == "local") {
+  "../out/BC_Municipal_Solid_Waste_Disposal.csv"
+} else {
+  stop("Invalid input source")
+}
+
+msw <- read_csv(input)
 
 myIdent <- function(x) {
   x <- ifelse(is.na(x),"N/A",as.character(x))
@@ -183,23 +199,23 @@ Waste that is reused or recycled is also not included.
 #### Interpreting the Data:
 
 -   `r max_year` disposal rates were provided by regional districts through the
-    completion of the municipal solid waste disposal calculator.
+completion of the municipal solid waste disposal calculator.
 -   Where no bar is shown on a chart for certain previous years, a
-    verifiable estimate was not available.
+verifiable estimate was not available.
 -   Historic disposal rates cannot be directly compared between years
-    because the data were collected using different methods. However,
-    the data from 2012 onward have been collected using the
-    same methodology.
+because the data were collected using different methods. However,
+the data from 2012 onward have been collected using the
+same methodology.
 -   In some cases, waste from light industry may be included in the municipal 
-    solid waste disposal rate data as it cannot be disaggregated.
+solid waste disposal rate data as it cannot be disaggregated.
 -   Regional District population estimates are sourced from [BC       Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6). Squamish-Lillooet, East Kootenay, and Fraser Fort-George population estimates have been adjusted based on data submitted by the Regional Districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
-    as they handle their waste stream [together](http://www.cswm.ca/index.html).
+as they handle their waste stream [together](http://www.cswm.ca/index.html).
 - The Skeena-Queen Charlotte Regional District is now called North Coast Regional District.
 -   Beginning in 2014, the disposal rate for Northern Rockies was
-    derived by removing 'bulky-waste commercial' from their
-    disposal total. This waste stream comes from oil and gas industrial
-    processes which is excluded from municipal solid waste.
+derived by removing 'bulky-waste commercial' from their
+disposal total. This waste stream comes from oil and gas industrial
+processes which is excluded from municipal solid waste.
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch at
@@ -209,19 +225,19 @@ also serve to inform future waste reporting methodology development. The  [**R**
 ### References and Other Useful Links:
 
 -   Find out where to recycle using the Recycling Council of British
-    Columbia's [Recyclepedia App](http://www.rcbc.bc.ca/).
+Columbia's [Recyclepedia App](http://www.rcbc.bc.ca/).
 -   [Product Stewardship
-    in B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
+in B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
 -   [Solid Waste Management Planning
-    in B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
+in B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
 -   [British Columbia's *Environmental Management
-    Act*](http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/03053_00)
+Act*](http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/03053_00)
 -   [Waste Management Industry Survey: Business and Government Sectors.
-    Statistics Canada (2013)
-    (PDF)](http://www.statcan.gc.ca/pub/16f0023x/16f0023x2013001-eng.pdf)
+Statistics Canada (2013)
+(PDF)](http://www.statcan.gc.ca/pub/16f0023x/16f0023x2013001-eng.pdf)
 -   [Waste Management in Canada. Statistics Canada (2012). See section
-    3.1, Municipal solid waste.
-    (PDF)](http://www.statcan.gc.ca/pub/16-201-x/16-201-x2012000-eng.pdf)
+3.1, Municipal solid waste.
+(PDF)](http://www.statcan.gc.ca/pub/16-201-x/16-201-x2012000-eng.pdf)
 -   ^1^[British Columbia Ministry of Environment and Climate Change Strategy and the Environmental Assessment Office 2018/19 &ndash; 2020/21 Service Plan (February 2018) (PDF)](http://bcbudget.gov.bc.ca/2018/sp/pdf/ministry/env.pdf)
 
 ### Data
