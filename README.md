@@ -10,7 +10,13 @@ The data used for the indicator is available from the [B.C. Data Catalogue](http
 
 ### Code
 
-There are two R scripts: `01_load.R` which loads and combines the old and new data, and `02_output.R` which creates the output data files. These need to be run sequentially. There is also one RMarkdown file associated with the indicator that generates the data visualizations.
+There is one R script, `internal.R` which loads and combines the published 
+[open data](https://catalogue.data.gov.bc.ca/dataset/bc-municipal-solid-waste-disposal-rates) 
+with this years yet-to-be published values, and creates the output data files 
+to be uploaded to the BC Data Catalogue and subsequently used in the indicator. 
+This script requires input data from the Environmental Standards Branch. 
+
+There is also one RMarkdown file associated with the indicator that generates the data visualizations and summary statistics.
 
 ### Getting Help or Reporting an Issue
 

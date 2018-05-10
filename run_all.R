@@ -10,12 +10,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-source("01_load.R")
-source("02_output.R")
+source("internal.R")
 
 mon_year <- format(Sys.Date(), "%b%Y")
 outfile <- tolower(paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf"))
 
 rmarkdown::render("print_ver/Municipal_Solid_Waste_print_ver.Rmd",
-                  output_file = outfile, params = list(input_source = local))
+                  output_file = outfile, params = list(input_source = "local"))
 extrafont::embed_fonts(file.path("print_ver", outfile))
