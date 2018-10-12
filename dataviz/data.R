@@ -46,18 +46,15 @@ district %<>%
 district$Regional_District[which(district$Regional_District == "Fraser Fort-George")] <- "Fraser-Fort George"
 district$Regional_District[which(district$Regional_District == "Northern-Rockies Regional Municipality")] <- "Northern Rockies"
 
-if(nrow(anti_join(indicator, district, 'Regional_District')) != 0L){
-  messge("There are unmatched districts")
-}
-if(nrow(anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))) != 0L){
-  messge("There are unmatched districts")
-}
-message("Stikine Regional District (Unincorporated) has no indicator data")
+### NOTE: Stikine has no indicator data
 
-### check link-indicator join
-if(nrow(anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))) != 0L){
-  messge("There are unmatched links")
-}
+### final check of data joins
+# anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))
+# anti_join(indicator, district, 'Regional_District')
+
+
+
+
 
 
 
