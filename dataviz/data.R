@@ -7,8 +7,6 @@ library(dplyr)
 library(stringr)
 library(rmapshaper)
 
-source("R/helpers.R")
-
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
 indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
@@ -18,8 +16,7 @@ link <- read_csv('data/rd_report_links.csv')
 district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
   # remove this for final run
-  # ms_simplify() %>%
-  print
+  ms_simplify()
 
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
