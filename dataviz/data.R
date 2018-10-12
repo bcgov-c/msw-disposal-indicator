@@ -7,6 +7,8 @@ library(dplyr)
 library(stringr)
 library(rmapshaper)
 
+source("R/helpers.R")
+
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
 indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
@@ -16,13 +18,14 @@ link <- read_csv('data/rd_report_links.csv')
 district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
   # remove this for final run
-  ms_simplify()
+  # ms_simplify() %>%
+  print
 
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
 district$Regional_District[which(district$Regional_District %in% c("Comox Valley Regional District", "Strathcona Regional District"))] <- "Comox-Strathcona"
-
-district %<>% group_by(Regional_District) %>%
+district %<>% 
+  group_by(Regional_District) %>%
   summarise(do_union = FALSE) %>%
   ungroup()
 
@@ -37,25 +40,26 @@ missing <- anti_join(indicator, district, 'Regional_District')$Regional_District
   unique %>%
   str_replace(" ", "-")
 
-district %<>% mutate(Regional_District = if_else(Regional_District %in% missing,
-                                                 str_replace(Regional_District, "-", " "),
-                                                 Regional_District))
+district %<>% 
+  mutate(Regional_District = if_else(Regional_District %in% missing,
+                                     str_replace(Regional_District, "-", " "),
+                                     Regional_District))
 
 ### fix Fraser Fort George and Northern Rockies
 district$Regional_District[which(district$Regional_District == "Fraser Fort-George")] <- "Fraser-Fort George"
 district$Regional_District[which(district$Regional_District == "Northern-Rockies Regional Municipality")] <- "Northern Rockies"
 
 if(nrow(anti_join(indicator, district, 'Regional_District')) != 0L){
-  messge("There are still unmatched districts")
+  messge("There are unmatched districts")
 }
 if(nrow(anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))) != 0L){
-  messge("There are still unmatched districts")
+  messge("There are unmatched districts")
 }
-message("Stikine Reginoal District (Unincorporated) has no indicator data because population too small")
+message("Stikine Regional District (Unincorporated) has no indicator data")
 
 ### check link-indicator join
 if(nrow(anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))) != 0L){
-  messge("There are still unmatched districts")
+  messge("There are unmatched links")
 }
 
 
