@@ -48,6 +48,8 @@ district %<>%
 district$Regional_District[which(district$Regional_District == "Fraser Fort-George")] <- "Fraser-Fort George"
 district$Regional_District[which(district$Regional_District == "Northern-Rockies Regional Municipality")] <- "Northern Rockies"
 
+### fix Stikine for labels
+district$Regional_District[which(district$Regional_District == "Stikine-(Unincorporated)")] <- "Stikine (Unincorporated)"
 ### NOTE: Stikine has no indicator data
 
 ### final check of data joins
