@@ -7,6 +7,8 @@ library(dplyr)
 library(stringr)
 library(rmapshaper)
 
+dir.create("tmp", showWarnings = FALSE)
+
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
 indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
@@ -51,6 +53,46 @@ district$Regional_District[which(district$Regional_District == "Northern-Rockies
 ### final check of data joins
 # anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))
 # anti_join(indicator, district, 'Regional_District')
+
+# Save objects
+saveRDS(indicator, file = "tmp/indicator.rds")
+saveRDS(district, file = "tmp/district.rds")
+saveRDS(link, file = "tmp/link.rds")
+
+# Create horizontal barcharts -----------------------------------------------------------
+library(ggplot2)
+library(envreportutils)
+library(purrr)
+
+# Function to generate horizontal barchart for popup
+horizontal_barchart <- function(data){
+  ggplot(data = data, aes(x = Year, y = Total_Disposed_Tonnes)) +
+    geom_bar(stat = 'identity') +
+    scale_y_continuous(expand = c(0,0)) +
+    theme_soe() +
+    theme(legend.position="none", 
+          panel.grid.major.y = element_blank(), 
+          axis.text = element_text(size = 14),
+          axis.title = element_text(size = 16)) +
+    labs(y = "Total Disposed Tonnes") +
+    NULL
+}
+
+#For each Regional District, generate plot
+rd <- unique(indicator$Regional_District)
+plot_list <- map(rd, ~ {
+  data <- filter(indicator, Regional_District == .) %>%
+    horizontal_barchart()
+})
+
+# Save objects
+saveRDS(plot_list, file = "tmp/plot_list.rds")
+
+
+
+
+
+  
 
 
 
