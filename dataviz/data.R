@@ -7,11 +7,11 @@ library(dplyr)
 library(stringr)
 library(rmapshaper)
 
-dir.create("tmp", showWarnings = FALSE)
-
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
-indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
+indicator <- read.csv('data/bcmunicipalsolidwastedisposal.csv')
+message("change 0 to NA - check with andy")
+indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
 
 link <- read_csv('data/rd_report_links.csv')
 
@@ -35,6 +35,7 @@ district$Regional_District %<>%
   str_replace(" ", "-")
 
 ### fix those that shouldn't be hyphenated
+indicator$Regional_District %<>% as.character
 missing <- anti_join(indicator, district, 'Regional_District')$Regional_District %>%
   unique %>%
   str_replace(" ", "-")
@@ -56,45 +57,49 @@ district$Regional_District[which(district$Regional_District == "Stikine-(Unincor
 # anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))
 # anti_join(indicator, district, 'Regional_District')
 
+district %<>%
+  st_transform(4326) 
+
+district$Regional_District %<>% 
+  factor()
+indicator$Regional_District %<>% 
+  factor(levels = levels(district$Regional_District))
+
+district <- district %>%
+  left_join(indicator %>%
+              filter(Year == 2016), "Regional_District")
+
+# dataset including data by year, but with only one geometry per district
+# district$Year <- 2016
+# district <- district %>% select(Regional_District, Year) %>%
+#   full_join(indicator, c("Regional_District", "Year")) 
+
+# rename sfc column, as some plotting packages only recognise sfc column called 'geometry'
+district <- district %>% 
+  as_tibble %>%
+  rename(geometry = SHAPE) %>%
+  st_set_geometry("geometry")
+
+# for ggiraph arg onclick, set search value of datatable
+# district$Onclick <- sprintf("set_search_val(\"%s\");", as.character(district$Regional_District))
+
+# create tooltip labels and add to data
+district$Label <- sprintf(
+  "<strong>%s</strong><br>2016 Population: %s<br>2016 Total Waste: %s",
+  district$Regional_District,
+  if_else(district$Regional_District == "Stikine (Unincorporated)", "No Data", paste(district$Population)),
+  if_else(district$Regional_District == "Stikine (Unincorporated)", "No Data", paste(district$Disposal_Rate_kg, "tonnes"))
+) %>% lapply(htmltools::HTML) %>%
+  setNames(district$Regional_District)
+
 # Save objects
-saveRDS(indicator, file = "tmp/indicator.rds")
-saveRDS(district, file = "tmp/district.rds")
-saveRDS(link, file = "tmp/link.rds")
+dir.create("dataviz/app/data", showWarnings = FALSE)
 
-# Create horizontal barcharts -----------------------------------------------------------
-library(ggplot2)
-library(envreportutils)
-library(purrr)
-
-# Function to generate horizontal barchart for popup
-horizontal_barchart <- function(data){
-  ggplot(data = data, aes(x = Year, y = Total_Disposed_Tonnes)) +
-    geom_bar(stat = 'identity') +
-    scale_y_continuous(expand = c(0,0)) +
-    theme_soe() +
-    theme(legend.position="none", 
-          panel.grid.major.y = element_blank(), 
-          axis.text = element_text(size = 14),
-          axis.title = element_text(size = 16)) +
-    labs(y = "Total Disposed Tonnes") +
-    NULL
-}
-
-#For each Regional District, generate plot
-rd <- unique(indicator$Regional_District)
-plot_list <- map(rd, ~ {
-  data <- filter(indicator, Regional_District == .) %>%
-    horizontal_barchart()
-})
-
-# Save objects
-saveRDS(plot_list, file = "tmp/plot_list.rds")
+saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
+saveRDS(district, file = "dataviz/app/data/district.rds")
+saveRDS(link, file = "dataviz/app/data/link.rds")
 
 
-
-
-
-  
 
 
 

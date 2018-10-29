@@ -1,0 +1,51 @@
+body {
+  font-family: "Myriad-Pro",sans-serif;
+  color: #494949;
+}
+
+h2 {
+  font-family: "Myriad-Pro",sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.ecoreg-popup {
+   color: #006d2c;
+}
+
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #e5f5e0;
+  border: 1px solid #006d2c;
+}
+
+.dl-button {
+  float: right;
+}
+
+#ecoreg_title, #bec_title {
+  text-align: center;
+}
+
+#ecoreg_label, #bec_label {
+  color: black;
+  background-color: #cccccc;
+}
+
+.plot-container {
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  margin-top: -33px;  /* half of the spinner's height */
+  margin-left: -33px; /* half of the spinner's width */
+}
+
+#ecoreg_barchart text, #bec_barchart text {
+  font-family: "Myriad-Pro",sans-serif;
+  fill: #494949;
+}
