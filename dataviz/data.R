@@ -69,33 +69,51 @@ district <- district %>%
   left_join(indicator %>%
               filter(Year == 2016), "Regional_District")
 
-# dataset including data by year, but with only one geometry per district
-# district$Year <- 2016
-# district <- district %>% select(Regional_District, Year) %>%
-#   full_join(indicator, c("Regional_District", "Year")) 
-
 # rename sfc column, as some plotting packages only recognise sfc column called 'geometry'
 district <- district %>% 
   as_tibble %>%
   rename(geometry = SHAPE) %>%
   st_set_geometry("geometry")
 
-# for ggiraph arg onclick, set search value of datatable
-# district$Onclick <- sprintf("set_search_val(\"%s\");", as.character(district$Regional_District))
-
 # create tooltip labels and add to data
-district$Label <- sprintf(
-  "<strong>%s</strong><br>2016 Population: %s<br>2016 Total Waste: %s",
-  district$Regional_District,
-  if_else(district$Regional_District == "Stikine (Unincorporated)", "No Data", paste(district$Population)),
-  if_else(district$Regional_District == "Stikine (Unincorporated)", "No Data", paste(district$Disposal_Rate_kg, "tonnes"))
-) %>% lapply(htmltools::HTML) %>%
-  setNames(district$Regional_District)
+create_tooltip <- function(data){
+  sprintf(
+    "<strong>%s, %s</strong><br>Waste disposal rate:<br>%s<br>Population: %s",
+    data$Regional_District,
+    data$Year,
+    if_else(data$Regional_District == "Stikine (Unincorporated)", 
+            "No Data", 
+            paste(format(data$Disposal_Rate_kg, digits = 0), "kg / person")),
+    if_else(data$Regional_District == "Stikine (Unincorporated)", 
+            "No Data", 
+            paste(format(data$Population, big.mark = ",")))
+  ) %>% lapply(htmltools::HTML) %>%
+    setNames(data$Regional_District)
+}
+
+district$Label <- create_tooltip(district)
+
+indicator$Year %<>% factor()
+indicator$Label <- create_tooltip(indicator)
+
+indicator_summary <- indicator %>% 
+  filter(!is.na(Disposal_Rate_kg)) %>%
+  group_by(Year) %>% 
+  filter(n() > 25) %>% # Only calculate prov totals when more than 25 RDs reported
+  summarise(Regional_District = "British Columbia",
+            Population = sum(Population, na.rm = TRUE),
+            Total_Disposed_Tonnes = sum(Total_Disposed_Tonnes, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Disposal_Rate_kg = Total_Disposed_Tonnes/Population * 1000,
+         Year = factor(Year, levels = levels(indicator$Year)))
+
+indicator_summary$Label <- create_tooltip(indicator_summary)
 
 # Save objects
 dir.create("dataviz/app/data", showWarnings = FALSE)
 
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
+saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
 saveRDS(district, file = "dataviz/app/data/district.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
