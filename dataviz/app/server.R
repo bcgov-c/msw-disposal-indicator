@@ -15,5 +15,29 @@ source("server_objects.R", local = TRUE)
 
 shinyServer(function(input, output, session) {
 
+  yearly_data <- reactive({
+    if(is.null(input$plots_selected)){
+      return(indicator_summary)
+    }
+    indicator[which(indicator$Regional_District %in% input$plots_selected),]
+  })
   
+  # link_data <- reactive({
+  #   link[which(link$Local_Govt_Name %in% input$plots_selected),]
+  # })
+  
+  output$plots <- renderGirafe({
+    girafe(code = print(gg_map(district) - gg_bar_rd(district) + plot_layout(ncol = 2,
+                                                                              widths = c(3, 1))), 
+            width_svg = translate_in(900), 
+            height_svg = translate_in(550)) %>%
+      girafe_options(opts_selection(type = "single"))
+  })
+  
+  output$plot <- renderGirafe({
+    data <- yearly_data()
+    girafe(ggobj = gg_bar_year(data),
+           width_svg = translate_in(900), 
+           height_svg = translate_in(250)) 
+  })
 })
