@@ -13,14 +13,13 @@ gg_map <- function(data){
                         aes(tooltip = Label, 
                             data_id = Regional_District,
                             fill = Disposal_Rate_kg),
-                        size = 0.05, color = "white") +
-    geom_sf(data = coastline, fill = "transparent", color = "black", size = 0.2) +
-    coord_sf(datum = NA) +
+                        size = 0.3, color = "black") +
+    coord_sf(crs = 3005, datum = NA) +
     theme_void() +
-    scale_fill_gradient(low = msw_light, high = msw_dark, 
+    scale_fill_distiller(palette = "Blues", direction = 1,
                         na.value = msw_na, name = "Disposal\n(kg / person)") +
     theme(axis.text = element_blank(),
-          legend.position = c(0.25, 0.135),
+          legend.position = c(0.2, 0.135),
           legend.title = element_text())
 }
 

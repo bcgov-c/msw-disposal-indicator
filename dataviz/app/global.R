@@ -16,11 +16,9 @@ district <- readRDS("data/district.rds")
 coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
 
-msw_blue <- "#8ea1c9"
+msw_blue <- "#6baed6"
 msw_green <- "#6ac1a5"
 msw_orange <- "#fa8d67"
-msw_light <- "#dde2ee"
-msw_dark <- "#63708c"
 msw_hover <- "#808080"
 msw_select <- "#808080"
 msw_na <- "white"

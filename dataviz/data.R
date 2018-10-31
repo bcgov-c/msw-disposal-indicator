@@ -19,7 +19,11 @@ district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
   ms_simplify()
 
-coastline <- bcmaps::bc_bound()
+coastline <- bcmaps::bc_bound() %>%
+  ms_simplify(keep = 0.2)
+
+district %<>% st_intersection(coastline) %>%
+  st_transform(3005)
   
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
