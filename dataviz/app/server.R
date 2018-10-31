@@ -78,6 +78,6 @@ shinyServer(function(input, output, session) {
   
   output$ui_header <- renderUI({
     data <- yearly$data
-    h2(HTML(paste("Disposal rates in", data$Regional_District[1], "<br>(kg per person)")))
+    h2(HTML(paste("Disposal rates in", data$Regional_District[1], "(kg per person)")))
   })
 })

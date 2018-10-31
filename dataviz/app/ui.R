@@ -11,35 +11,11 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 shinyUI(
-  # fluidPage(
-  #   includeCSS("www/style.css"),
-  #   
-  #   fluidRow(
-  #     h2(HTML("2016 Regional District disposal rates<br>(kg per person)")),
-  #         div(class = "div-link",
-  #             HTML(paste0("Click to sort by: ",
-  #                         actionLink("sort_name", "Name", class = 'msw-link'),
-  #                         " / ",
-  #                         actionLink("sort_rate", "Disposal Rate", class = 'msw-link'),
-  #                         " / ",
-  #                         actionLink("sort_population", "Population", class = 'msw-link')
-  #             ))
-  #         ),
-  #         girafeOutput(outputId = 'plot_rd'),
-  #     uiOutput('ui_header'),
-  #     div(class = "div-link",
-  #         actionLink(inputId = "show_bc", "Show British Columbia", class = 'msw-link')),
-  #     girafeOutput(outputId = 'plot_year'),
-  #     h2("Download reports"),
-  #     uiOutput("ui_dl")
-  #   )
-  # )
-  
   fluidPage(
     includeCSS("www/style.css"),
     fluidRow(
       div(style = div_css(p1.w, p1.h),
-          h2(HTML("2016 Regional District disposal rates<br>(kg per person)")),
+          h2(HTML("2016 Regional District disposal rates (kg per person)")),
           div(class = "div-link",
               HTML(paste0("Click to sort by: ",
                           actionLink("sort_name", "Name", class = 'msw-link'),
@@ -54,7 +30,7 @@ shinyUI(
     fluidRow(
     div(style = div_css(p2.w, p2.h),
                  uiOutput('ui_header'),
-                 # div(class = "div-link",
+                 div(class = "div-link",
                  # actionLink(inputId = "show_bc", "Show British Columbia", class = 'msw-link')),
                  girafeOutput(outputId = 'plot_year')),
              div(style= div_css(p3.w, p3.h, ""),
@@ -64,5 +40,5 @@ shinyUI(
                  uiOutput("ui_dl")
              )
       ) 
-    )
+    ))
 )
