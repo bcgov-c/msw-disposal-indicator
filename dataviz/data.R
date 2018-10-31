@@ -17,9 +17,10 @@ link <- read_csv('data/rd_report_links.csv')
 
 district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
-  # remove this for final run
   ms_simplify()
 
+coastline <- bcmaps::bc_bound()
+  
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
 district$Regional_District[which(district$Regional_District %in% c("Comox Valley Regional District", "Strathcona Regional District"))] <- "Comox-Strathcona"
@@ -92,6 +93,9 @@ create_tooltip <- function(data){
 }
 
 district$Label <- create_tooltip(district)
+district %<>% mutate(Fill = if_else(Population > 100000, 
+                                    "Population > 100,000",
+                                    "Population < 100,0000"))
 
 indicator$Year %<>% factor()
 indicator$Label <- create_tooltip(indicator)
@@ -115,6 +119,7 @@ dir.create("dataviz/app/data", showWarnings = FALSE)
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
 saveRDS(district, file = "dataviz/app/data/district.rds")
+saveRDS(coastline, file = "dataviz/app/data/coastline.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
 
