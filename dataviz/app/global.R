@@ -1,10 +1,7 @@
 library(ggplot2)
-library(purrr)
-library(envreportutils)
 library(shiny)
 library(ggiraph)
 library(patchwork)
-library(shinyjs)
 library(forcats)
 
 source("server_functions.R", local = TRUE)
