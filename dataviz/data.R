@@ -99,7 +99,7 @@ create_tooltip <- function(data){
 district$Label <- create_tooltip(district)
 district %<>% mutate(Fill = if_else(Population > 100000, 
                                     "Population > 100,000",
-                                    "Population < 100,0000"))
+                                    "Population < 100,000"))
 
 indicator$Year %<>% factor()
 indicator$Label <- create_tooltip(indicator)
