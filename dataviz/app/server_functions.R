@@ -33,7 +33,7 @@ gg_bar_rd <- function(data, hline){
              tooltip = Label, 
              data_id = Regional_District)) + 
     geom_bar_interactive(stat = "identity") +
-    coord_flip(expand = FALSE) +
+    coord_flip() +
     scale_fill_manual(values = c(msw_green, 
                                   msw_orange)) +
     theme_bw() +
@@ -41,22 +41,23 @@ gg_bar_rd <- function(data, hline){
                        breaks = c(0, cumsum(rep(1000/6, 6))),
                        labels = c(0, "", "", "", "", "", "1,000"), 
                        limits = c(0, 1000)) +
+    scale_x_discrete(expand = expand_scale(0.03)) +
     labs(x = NULL, y = "Disposal (kg / person)") +
-    theme(axis.text = element_text(size = 10),
+    theme(axis.text = element_text(size = txt_size),
           legend.position = "bottom",
           legend.title = element_blank(),
           axis.ticks.y = element_blank(),
           axis.ticks.x = element_line(color = msw_grey),
-          axis.line.x = element_line(color = msw_grey),
+          axis.line.x = element_line(color = msw_grey, size = line_size),
           panel.border = element_blank(),
+          axis.title = element_text(size = txt_size),
           panel.grid = element_blank(), 
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
     geom_hline(yintercept = hline, size = 0.3, color = msw_grey) +
-    annotate("text", 1.6, hline + 240, 
+    annotate("text", 1.6, hline + 200, 
                   label = paste0("B.C.\n(", format(hline, digits = 0), " kg / person)"),
-              size = 4, color = msw_select) 
-  
+              size = 4, color = msw_grey) 
 }
 
 gg_bar_year <- function(data){
@@ -68,7 +69,8 @@ gg_bar_year <- function(data){
     geom_bar_interactive(stat = "identity", fill = msw_blue) +
     scale_x_discrete(drop = FALSE, 
                      breaks = paste(seq(1990, 2016, 2)),
-                     labels = paste(seq(1990, 2016, 2))) +
+                     labels = paste(seq(1990, 2016, 2)),
+                     expand = expand_scale(0.04)) +
     scale_y_continuous(expand = c(0,0), 
                        breaks = c(0, 500, 1000, 1500, 2000),
                        labels = c("0", "500", "1,000", "1,500", "2,000"),
@@ -79,10 +81,11 @@ gg_bar_year <- function(data){
     theme(legend.title = element_blank(),
           panel.grid = element_blank(),
           panel.border = element_blank(),
-          axis.line = element_line(color = msw_grey),
+          axis.line = element_line(color = msw_grey, size = line_size),
           axis.ticks = element_line(color = msw_grey),
           axis.ticks.length=unit(.25, "cm"),
-          axis.text = element_text(size = 11),
+          axis.text = element_text(size = txt_size),
+          axis.title = element_text(size = txt_size),
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5))
 }
 
