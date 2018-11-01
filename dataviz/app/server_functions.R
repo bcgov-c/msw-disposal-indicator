@@ -104,17 +104,14 @@ sort_data <- function(data, x){
 }
 
 prepare_links <- function(data){
-  data <- t(data[c("url", "swmPlan", "wComposition")]) %>% 
+  data <- t(data[c("swmPlan", "wComposition")]) %>% 
     as.data.frame()
   colnames(data) <- "web"
-  data$label <- c("Regional District website", 
-                  "Solid Waste Management Plan",
+  data$label <- c("Solid Waste Management Plan",
                   "Waste Composition Report")
-  data$icon <- c("desktop",
-                 "file",
+  data$icon <- c("file",
                  "stats")
   data$lib <- c("font-awesome",
-                "font-awesome",
                 "glyphicon")
   data <- data[which(!is.na(data$web)),]
   data
