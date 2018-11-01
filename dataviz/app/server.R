@@ -40,27 +40,52 @@ shinyServer(function(input, output, session) {
     }
   })
   observeEvent(input$show_bc, {
-    links$data = NULL})
-  
-  observe(print(links$data))
+    links$data = NULL
+    session$sendCustomMessage(type = 'plot_rd_set', message = character(0))})
+  observe({
+    if(!is.null(links$data)){toggle("show_bc")}
+    })
+
+  output$ui_resources <- renderUI({
+    req(links$data)
+    HTML("<strong>Resources:</strong>")
+  })
   
   output$ui_dl <- renderUI({
     req(links$data)
     data <- links$data
-    # HTML(data$Local_Govt_Name)
     data <- prepare_links(data)
     lapply(1:nrow(data), function(x){
       x <- data[x,]
       actionButton(inputId = row.names(x), label = x$label,
-                   onclick = paste0("window.open('", x$web, "')"))
+                   onclick = paste0("window.open('", x$web, "')"),
+                   class = "msw-button")
     })
+  })
+  
+  output$ui_info <- renderUI({
+    if(is.null(links$data)){
+      return(h2(HTML(paste("Disposal rates in British Columbia (kg per person)"))))
+    }
+    data <- yearly$data 
+    data <- data[order(data$Year),]
+    data <- data[1,]
+    rd <- h2(HTML(paste("Disposal rates in", data$Regional_District, "(kg per person)")))
+    pop <- paste("Population, 2016:", format(data$Population, big.mark = ","))
+    rate <- paste("Disposal Rate, 2016:", data$Disposal_Rate_kg, "(kg / person)")
+    HTML(paste(rd, pop, "<br>", rate))
+  })
+  
+  output$ui_show <- renderUI({
+    req(links$data)
+    actionLink(inputId = "show_bc", "Back to British Columbia rates", class = 'msw-link')
   })
   
   output$plot_rd <- renderGirafe({
     data <- district_data()
     hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == 2016]
     girafe(code = print(gg_map(data) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
-                                                                            widths = c(2, 1))), 
+                                                                            widths = c(8, 3))), 
            width_svg = translate_in(p1.w), 
            height_svg = translate_in(p1.h)) %>%
       girafe_options(opts_selection(type = "single", 
@@ -73,7 +98,8 @@ shinyServer(function(input, output, session) {
     girafe(code = print(gg_bar_year(data)),
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
-      girafe_options(opts_hover(css = paste0("fill: ", msw_hover, ";")))
+      girafe_options(opts_hover(css = paste0("fill: ", msw_hover, ";")),
+                     opts_selection(type = "none"))
   })
   
   output$ui_header <- renderUI({

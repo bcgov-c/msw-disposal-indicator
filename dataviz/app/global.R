@@ -16,16 +16,16 @@ district <- readRDS("data/district.rds")
 coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
 
-msw_blue <- "#4292c6"
+msw_blue <- "#8EA1C9"
 msw_green <- "#6ac1a5"
 msw_orange <- "#fa8d67"
 msw_hover <- "#808080"
 msw_select <- "#808080"
 msw_na <- "white"
 
-p1.w <- 800
-p1.h <- 450
-p2.w <- 800
+tints <- rev(c("#485165", "#566179", "#64718D", "#7281A1", "#8091B5", "#8EA1C9", "#99AACE", "#A4B3D3", "#AFBCD8", "#BAC5DD", "#C5CEE2", "#D0D7E7", "#DBE0EC", "#E6E9F1", "#F1F2F6"))
+
+p1.w <- 900
+p1.h <- 500
+p2.w <- 900
 p2.h <- 300
-p3.w <- 800
-p3.h <- 100

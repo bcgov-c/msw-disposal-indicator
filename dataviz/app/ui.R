@@ -13,7 +13,7 @@
 shinyUI(
   fluidPage(
     includeCSS("www/style.css"),
-    fluidRow(
+    fluidRow(align = "center",
       div(style = div_css(p1.w, p1.h),
           h2(HTML("2016 Regional District disposal rates (kg per person)")),
           div(class = "div-link",
@@ -27,18 +27,15 @@ shinyUI(
           ),
           girafeOutput(outputId = 'plot_rd'))
     ),
-    fluidRow(
-    div(style = div_css(p2.w, p2.h),
-                 uiOutput('ui_header'),
-                 div(class = "div-link",
-                 # actionLink(inputId = "show_bc", "Show British Columbia", class = 'msw-link')),
-                 girafeOutput(outputId = 'plot_year')),
-             div(style= div_css(p3.w, p3.h, ""),
-                 br(),
-                 br(),
-                 h2("Download reports"),
-                 uiOutput("ui_dl")
-             )
-      ) 
+    fluidRow(align = "center",
+             uiOutput("ui_info"),
+               uiOutput("ui_resources", style = "display: inline-block;"),
+               uiOutput("ui_dl", style = "display: inline-block;"),
+             br(),
+             div(style = paste("width:", translate_px(p2.w), "; text-align: right;"),
+             uiOutput("ui_show")),
+             div(style = div_css(p2.w, p2.h),
+                 girafeOutput(outputId = 'plot_year'))
     ))
 )
+  
