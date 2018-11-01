@@ -31,10 +31,6 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  observeEvent(input$show_bc, {
-    session$sendCustomMessage(type = 'plot_rd_set', message = character(0))
-    })
-  
   observe({
     if(is.null(input$plot_rd_selected)){
       rv_data$yearly = indicator_summary
@@ -52,6 +48,10 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  observeEvent(input$show_bc, {
+    session$sendCustomMessage(type = 'plot_rd_set', message = character(0))
+  })
+  
   district_data <- reactive({
     district$Regional_District <- sort_data(district, rv_data$sort_by)
     district
@@ -66,8 +66,7 @@ shinyServer(function(input, output, session) {
   
   output$ui_dl <- renderUI({
     req(rv_data$links)
-    data <- rv_data$links
-    data <- prepare_links(data)
+    data <- rv_data$links %>% prepare_links()
     lapply(1:nrow(data), function(x){
       x <- data[x,]
       actionButton(inputId = row.names(x), label = x$label,
