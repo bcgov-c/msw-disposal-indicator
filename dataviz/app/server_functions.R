@@ -46,6 +46,7 @@ gg_bar_rd <- function(data, hline){
     theme(axis.text = element_text(size = txt_size),
           legend.position = "bottom",
           legend.title = element_blank(),
+          # legend.text = element_text(size = txt_size),
           axis.ticks.y = element_blank(),
           axis.ticks.x = element_line(color = msw_grey),
           axis.line.x = element_line(color = msw_grey, size = line_size),
@@ -55,7 +56,7 @@ gg_bar_rd <- function(data, hline){
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
     geom_hline(yintercept = hline, size = 0.3, color = msw_grey) +
-    annotate("text", 1.6, hline + 200, 
+    annotate("text", 1.5, hline + 220, 
                   label = paste0("B.C.\n(", format(hline, digits = 0), " kg / person)"),
               size = 4, color = msw_grey) 
 }
@@ -109,6 +110,12 @@ prepare_links <- function(data){
   data$label <- c("Regional District website", 
                   "Solid Waste Management Plan",
                   "Waste Composition Report")
+  data$icon <- c("desktop",
+                 "file",
+                 "stats")
+  data$lib <- c("font-awesome",
+                "font-awesome",
+                "glyphicon")
   data <- data[which(!is.na(data$web)),]
   data
 }

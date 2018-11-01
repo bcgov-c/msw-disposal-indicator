@@ -17,13 +17,13 @@ shinyUI(
       div(style = div_css(p1.w, p1.h),
           conditionalPanel(condition = "output.plot_rd", 
             h2(HTML("2016 Regional District disposal rates (kg per person)")),
-            div(class = "div-link",
+            div(class = "div-link", style = paste0("width:", translate_px(p1.w - 60), ";"),
                 HTML(paste0("Click to sort by: ",
-                            actionLink("sort_name", "Name", class = 'msw-link'),
+                            actionButton("sort_name", "Name", class = 'msw-button'),
                             " / ",
-                            actionLink("sort_rate", "Disposal Rate", class = 'msw-link'),
+                            actionButton("sort_rate", "Disposal Rate", class = 'msw-button'),
                             " / ",
-                            actionLink("sort_population", "Population", class = 'msw-link')
+                            actionButton("sort_population", "Population", class = 'msw-button')
                 )))
           ),
           girafeOutput(outputId = 'plot_rd'))
