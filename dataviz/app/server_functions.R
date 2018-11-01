@@ -18,7 +18,8 @@ gg_map <- function(data){
     theme_void() +
     # scale_fill_distiller(palette = "Blues", direction = 1,
     #                     na.value = msw_na, name = "Disposal\n(kg / person)") +
-    scale_fill_gradientn(colours = tints, na.value = msw_na, name = "Disposal\n(kg / person)") +
+    scale_fill_gradientn(colours = tints, na.value = msw_na, 
+                         name = "Disposal\n(kg / person)") +
     theme(axis.text = element_blank(),
           legend.position = c(0.2, 0.135),
           legend.title = element_text())
@@ -45,12 +46,13 @@ gg_bar_rd <- function(data, hline){
           legend.position = "bottom",
           legend.title = element_blank(),
           axis.ticks.y = element_blank(),
-          axis.line.x = element_line(),
+          axis.ticks.x = element_line(color = msw_grey),
+          axis.line.x = element_line(color = msw_grey),
           panel.border = element_blank(),
-          panel.grid = element_blank(),
+          panel.grid = element_blank(), 
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
-    geom_hline(yintercept = hline, size = 0.5, color = msw_select) +
+    geom_hline(yintercept = hline, size = 0.3, color = msw_grey) +
     annotate("text", 1.6, hline + 240, 
                   label = paste0("B.C.\n(", format(hline, digits = 0), " kg / person)"),
               size = 4, color = msw_select) 
@@ -77,7 +79,9 @@ gg_bar_year <- function(data){
     theme(legend.title = element_blank(),
           panel.grid = element_blank(),
           panel.border = element_blank(),
-          axis.line = element_line(),
+          axis.line = element_line(color = msw_grey),
+          axis.ticks = element_line(color = msw_grey),
+          axis.ticks.length=unit(.25, "cm"),
           axis.text = element_text(size = 11),
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5))
 }

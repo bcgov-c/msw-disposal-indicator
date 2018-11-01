@@ -24,6 +24,7 @@ msw_green <- "#6ac1a5"
 msw_orange <- "#fa8d67"
 msw_hover <- "#808080"
 msw_select <- "#808080"
+msw_grey <- "#909090"
 msw_na <- "white"
 
 tints <- rev(c("#485165", "#566179", "#64718D", "#7281A1", "#8091B5", "#8EA1C9", "#99AACE", "#A4B3D3", "#AFBCD8", "#BAC5DD", "#C5CEE2", "#D0D7E7", "#DBE0EC", "#E6E9F1", "#F1F2F6"))
