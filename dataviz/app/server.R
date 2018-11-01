@@ -43,9 +43,11 @@ shinyServer(function(input, output, session) {
     links$data = NULL
     session$sendCustomMessage(type = 'plot_rd_set', message = character(0))})
   observe({
-    if(!is.null(links$data)){toggle("show_bc")}
-    })
-
+    if(is.null(input$plot_rd_selected)){
+      links$data <- NULL
+    }
+  })
+  
   output$ui_resources <- renderUI({
     req(links$data)
     HTML("<strong>Resources:</strong>")
@@ -85,7 +87,7 @@ shinyServer(function(input, output, session) {
     data <- district_data()
     hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == 2016]
     girafe(code = print(gg_map(data) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
-                                                                            widths = c(8, 3))), 
+                                                                            widths = c(9, 4))), 
            width_svg = translate_in(p1.w), 
            height_svg = translate_in(p1.h)) %>%
       girafe_options(opts_selection(type = "single", 
