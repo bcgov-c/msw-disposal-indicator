@@ -114,6 +114,8 @@ indicator_summary <- indicator %>%
 
 indicator_summary$Label <- create_tooltip(indicator_summary)
 
+indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
+
 # Save objects
 dir.create("dataviz/app/data", showWarnings = FALSE)
 
