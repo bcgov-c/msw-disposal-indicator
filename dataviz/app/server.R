@@ -77,8 +77,8 @@ shinyServer(function(input, output, session) {
     data <- data[order(data$Year),]
     data <- data[1,]
     rd <- h2(HTML(paste("Disposal rates in", data$Regional_District, "(kg per person)")))
-    pop <- paste("Population, 2016:", format(data$Population, big.mark = ","))
-    rate <- paste("Disposal Rate, 2016:", data$Disposal_Rate_kg, "(kg / person)")
+    pop <- paste("2016 Population:", format(data$Population, big.mark = ","))
+    rate <- paste("2016 Disposal Rate:", data$Disposal_Rate_kg, "(kg / person)")
     HTML(paste(rd, pop, "<br>", rate))
   })
   
