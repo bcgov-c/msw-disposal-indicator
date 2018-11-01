@@ -14,6 +14,8 @@
 
 shinyServer(function(input, output, session) {
   
+  # ------------------------------- reactives ------------------------------------
+  
   sort_by <- reactiveValues(clicked = "rate")
   observeEvent(input$sort_name, {sort_by$clicked = "name"})
   observeEvent(input$sort_rate, {sort_by$clicked = "rate"})
@@ -48,6 +50,8 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  # ------------------------------- render UI ------------------------------------
+  
   output$ui_resources <- renderUI({
     req(links$data)
     HTML("<strong>Resources:</strong>")
@@ -61,7 +65,7 @@ shinyServer(function(input, output, session) {
       x <- data[x,]
       actionButton(inputId = row.names(x), label = x$label,
                    onclick = paste0("window.open('", x$web, "')"),
-                   class = "msw-button")
+                   class = "msw-button", icon = icon(x$icon, lib = x$lib))
     })
   })
   
@@ -80,8 +84,10 @@ shinyServer(function(input, output, session) {
   
   output$ui_show <- renderUI({
     req(links$data)
-    actionLink(inputId = "show_bc", "Back to British Columbia rates", class = 'msw-link')
+    actionButton(inputId = "show_bc", "Show British Columbia", class = 'msw-button')
   })
+  
+  # ------------------------------- render outputs ------------------------------------
   
   output$plot_rd <- renderGirafe({
     data <- district_data()
@@ -106,10 +112,5 @@ shinyServer(function(input, output, session) {
                      opts_tooltip(css = tooltip_css, opacity = 1),
                      opts_selection(type = "none"),
                      opts_toolbar(saveaspng = FALSE))
-  })
-  
-  output$ui_header <- renderUI({
-    data <- yearly$data
-    h2(HTML(paste("Disposal rates in", data$Regional_District[1], "(kg per person)")))
   })
 })
