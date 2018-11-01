@@ -15,51 +15,58 @@
 shinyServer(function(input, output, session) {
   
   # ------------------------------- reactives ------------------------------------
+  rv_data <- reactiveValues(sort_by = "rate",
+                            yearly = indicator_summary,
+                            links = NULL,
+                            title = bc_title)
   
-  sort_by <- reactiveValues(clicked = "rate")
-  observeEvent(input$sort_name, {sort_by$clicked = "name"})
-  observeEvent(input$sort_rate, {sort_by$clicked = "rate"})
-  observeEvent(input$sort_population, {sort_by$clicked = "pop"})
+  observeEvent(input$sort_name, {rv_data$sort_by = "name"})
+  observeEvent(input$sort_rate, {rv_data$sort_by = "rate"})
+  observeEvent(input$sort_population, {rv_data$sort_by = "pop"})
   
-  yearly <- reactiveValues(data = indicator_summary)
   observe({
-    if(!is.null(input$plot_rd_selected)){
-      yearly$data = indicator[which(indicator$Regional_District %in% input$plot_rd_selected),]
+    if(!is.null(input$plot_rd_selected) && input$plot_rd_selected != stikine){
+      rv_data$yearly = indicator[which(indicator$Regional_District %in% input$plot_rd_selected),]
+      rv_data$links = link[which(link$Local_Govt_Name %in% input$plot_rd_selected),]
     }
   })
-  observeEvent(input$show_bc, {
-    yearly$data = indicator_summary})
   
-  district_data <- reactive({
-    district$Regional_District <- sort_data(district, sort_by$clicked)
-    district
-  })
-  
-  links <- reactiveValues(data = NULL)
-  observe({
-    if(!is.null(input$plot_rd_selected)){
-      links$data = link[which(link$Local_Govt_Name %in% input$plot_rd_selected),]
-    }
-  })
   observeEvent(input$show_bc, {
-    links$data = NULL
-    session$sendCustomMessage(type = 'plot_rd_set', message = character(0))})
+    session$sendCustomMessage(type = 'plot_rd_set', message = character(0))
+    })
+  
   observe({
     if(is.null(input$plot_rd_selected)){
-      links$data <- NULL
+      rv_data$yearly = indicator_summary
+      rv_data$links = NULL
+      rv_data$title = bc_title
     }
+  })
+  
+  observe({
+    req(input$plot_rd_selected)
+    if(input$plot_rd_selected == stikine){
+      rv_data$yearly = NULL
+      rv_data$links = NULL
+      rv_data$title = stikine_title
+    }
+  })
+  
+  district_data <- reactive({
+    district$Regional_District <- sort_data(district, rv_data$sort_by)
+    district
   })
   
   # ------------------------------- render UI ------------------------------------
   
   output$ui_resources <- renderUI({
-    req(links$data)
+    req(rv_data$links)
     HTML("<strong>Resources:</strong>")
   })
   
   output$ui_dl <- renderUI({
-    req(links$data)
-    data <- links$data
+    req(rv_data$links)
+    data <- rv_data$links
     data <- prepare_links(data)
     lapply(1:nrow(data), function(x){
       x <- data[x,]
@@ -70,10 +77,10 @@ shinyServer(function(input, output, session) {
   })
   
   output$ui_info <- renderUI({
-    if(is.null(links$data)){
-      return(h2(HTML(paste("Disposal Rates in British Columbia"))))
+    if(input$plot_rd_selected == stikine || is.null(input$plot_rd_selected)){
+      return(h2(rv_data$title))
     }
-    data <- yearly$data 
+    data <- rv_data$yearly 
     data <- data[order(data$Year),]
     data <- data[1,]
     rd <- h2(HTML(paste("Disposal Rates in", data$Regional_District)))
@@ -83,7 +90,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$ui_show <- renderUI({
-    req(links$data)
+    req(rv_data$links)
     actionButton(inputId = "show_bc", "Show British Columbia", class = 'msw-button')
   })
   
@@ -104,7 +111,8 @@ shinyServer(function(input, output, session) {
   })
   
   output$plot_year <- renderGirafe({
-    data <- yearly$data
+    data <- rv_data$yearly
+    req(data)
     girafe(code = print(gg_bar_year(data)),
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
