@@ -15,15 +15,16 @@ shinyUI(
     includeCSS("www/style.css"),
     fluidRow(align = "center",
       div(style = div_css(p1.w, p1.h),
-          h2(HTML("2016 Regional District disposal rates (kg per person)")),
-          div(class = "div-link",
-              HTML(paste0("Click to sort by: ",
-                          actionLink("sort_name", "Name", class = 'msw-link'),
-                          " / ",
-                          actionLink("sort_rate", "Disposal Rate", class = 'msw-link'),
-                          " / ",
-                          actionLink("sort_population", "Population", class = 'msw-link')
-              ))
+          conditionalPanel(condition = "output.plot_rd", 
+            h2(HTML("2016 Regional District disposal rates (kg per person)")),
+            div(class = "div-link",
+                HTML(paste0("Click to sort by: ",
+                            actionLink("sort_name", "Name", class = 'msw-link'),
+                            " / ",
+                            actionLink("sort_rate", "Disposal Rate", class = 'msw-link'),
+                            " / ",
+                            actionLink("sort_population", "Population", class = 'msw-link')
+                )))
           ),
           girafeOutput(outputId = 'plot_rd'))
     ),
@@ -32,7 +33,7 @@ shinyUI(
                uiOutput("ui_resources", style = "display: inline-block;"),
                uiOutput("ui_dl", style = "display: inline-block;"),
              br(),
-             div(style = paste("width:", translate_px(p2.w), "; text-align: right;"),
+             div(style = paste("width:", translate_px(p2.w - 100), "; text-align: right;"),
              uiOutput("ui_show")),
              div(style = div_css(p2.w, p2.h),
                  girafeOutput(outputId = 'plot_year'))
