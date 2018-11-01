@@ -69,8 +69,8 @@ gg_bar_year <- function(data){
              data_id = Year)) + 
     geom_bar_interactive(stat = "identity", fill = msw_blue) +
     scale_x_discrete(drop = FALSE, 
-                     breaks = paste(seq(1990, 2016, 2)),
-                     labels = paste(seq(1990, 2016, 2)),
+                     breaks = paste(seq(1990, max_year, 2)),
+                     labels = paste(seq(1990, max_year, 2)),
                      expand = expand_scale(0.04)) +
     scale_y_continuous(expand = c(0,0), 
                        breaks = c(0, 500, 1000, 1500, 2000),

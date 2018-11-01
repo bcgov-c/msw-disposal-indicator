@@ -12,6 +12,7 @@ library(rmapshaper)
 indicator <- read.csv('data/bcmunicipalsolidwastedisposal.csv')
 message("change 0 to NA - check with andy")
 indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
+max_year <- max(indicator$Year, na.rm = T)
 
 link <- read_csv('data/rd_report_links.csv')
 
@@ -22,8 +23,7 @@ district <- bcmaps::combine_nr_rd() %>%
 coastline <- bcmaps::bc_bound() %>%
   ms_simplify(keep = 0.2)
 
-district %<>% st_intersection(coastline) %>%
-  st_transform(3005)
+district %<>% st_intersection(coastline) 
   
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
@@ -62,9 +62,6 @@ district$Regional_District[which(district$Regional_District == "Stikine-(Unincor
 # anti_join(indicator, link, c('Regional_District' = 'Local_Govt_Name'))
 # anti_join(indicator, district, 'Regional_District')
 
-district %<>%
-  st_transform(4326) 
-
 district$Regional_District %<>% 
   factor()
 indicator$Regional_District %<>% 
@@ -72,7 +69,7 @@ indicator$Regional_District %<>%
 
 district <- district %>%
   left_join(indicator %>%
-              filter(Year == 2016), "Regional_District")
+              filter(Year == max_year), "Regional_District")
 
 # rename sfc column, as some plotting packages only recognise sfc column called 'geometry'
 district <- district %>% 

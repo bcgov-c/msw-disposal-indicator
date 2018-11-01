@@ -15,7 +15,7 @@ shinyUI(
     includeCSS("www/style.css"),
     fluidRow(align = "center",
       div(style = div_css(p1.w, p1.h),
-            h2(HTML("Regional District Disposal Rates, 2016")),
+            h2(paste("Regional District Disposal Rates", max_year)),
             div(class = "div-link", style = paste0("width:", translate_px(p1.w - 60), ";"),
                 HTML(paste0("Click to sort by: ",
                             actionButton("sort_name", "Name", class = 'msw-button'),

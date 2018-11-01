@@ -83,8 +83,8 @@ shinyServer(function(input, output, session) {
     data <- data[order(data$Year),]
     data <- data[1,]
     rd <- h2(HTML(paste("Disposal Rates in", data$Regional_District)))
-    pop <- paste("2016 Population:", format(data$Population, big.mark = ","))
-    rate <- paste("2016 Disposal Rate:", data$Disposal_Rate_kg, "(kg / person)")
+    pop <- paste(max_year, "Population:", format(data$Population, big.mark = ","))
+    rate <- paste(max_year, "Disposal Rate:", data$Disposal_Rate_kg, "(kg / person)")
     HTML(paste(rd, pop, "<br>", rate))
   })
   
@@ -97,7 +97,7 @@ shinyServer(function(input, output, session) {
   
   output$plot_rd <- renderGirafe({
     data <- district_data()
-    hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == 2016]
+    hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == max_year]
     girafe(code = print(gg_map(data) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
                                                                             widths = c(9, 4))), 
            width_svg = translate_in(p1.w), 

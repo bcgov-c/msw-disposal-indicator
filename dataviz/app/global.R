@@ -7,8 +7,8 @@ library(forcats)
 source("server_functions.R", local = TRUE)
 
 # read data
-indicator <- readRDS("data/indicator.rds")
-indicator_summary <- readRDS("data/indicator_summary.rds")
+indicator <- readRDS("data/indicator.rds") 
+indicator_summary <- readRDS("data/indicator_summary.rds") 
 district <- readRDS("data/district.rds")
 coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
@@ -16,6 +16,8 @@ link <- readRDS("data/link.rds")
 stikine <- "Stikine (Unincorporated)"
 bc_title <- "British Columbia Disposal Rates"
 stikine_title <- "No Data for Stikine (Unincorporated)"
+
+max_year <- max(district$Year, na.rm = TRUE)
 
 tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px; 
                 padding: 5px; box-shadow: 3px 3px 5px 0px #888888;
