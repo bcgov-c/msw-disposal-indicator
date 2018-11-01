@@ -83,7 +83,7 @@ district <- district %>%
 # create tooltip labels and add to data
 create_tooltip <- function(data){
   sprintf(
-    "<strong>%s, %s</strong><br>Waste disposal rate:<br>%s<br>Population: %s",
+    "<strong>%s, %s</strong><br><strong>Waste disposal rate:</strong><br>%s<br><strong>Population:</strong> %s",
     data$Regional_District,
     data$Year,
     if_else(data$Regional_District == "Stikine (Unincorporated)", 

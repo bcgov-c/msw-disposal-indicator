@@ -90,7 +90,8 @@ shinyServer(function(input, output, session) {
            height_svg = translate_in(p1.h)) %>%
       girafe_options(opts_selection(type = "single", 
                                     css = paste0("fill: ", msw_select, ";")),
-                     opts_hover(css = paste0("fill: ", msw_hover, ";")))
+                     opts_hover(css = paste0("fill: ", msw_hover, ";")), 
+                     opts_tooltip(css = tooltip_css, opacity = 1))
   })
   
   output$plot_year <- renderGirafe({
@@ -99,6 +100,7 @@ shinyServer(function(input, output, session) {
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
       girafe_options(opts_hover(css = paste0("fill: ", msw_hover, ";")),
+                     opts_tooltip(css = tooltip_css, opacity = 1),
                      opts_selection(type = "none"))
   })
   

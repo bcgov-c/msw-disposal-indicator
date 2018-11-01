@@ -16,6 +16,9 @@ district <- readRDS("data/district.rds")
 coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
 
+tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px; 
+                padding: 5px; box-shadow: 3px 3px 5px 0px #888888;
+                font-size: 12px; border-width 2px; border-color: black;"
 msw_blue <- "#8EA1C9"
 msw_green <- "#6ac1a5"
 msw_orange <- "#fa8d67"
