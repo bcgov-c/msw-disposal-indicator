@@ -71,12 +71,12 @@ shinyServer(function(input, output, session) {
   
   output$ui_info <- renderUI({
     if(is.null(links$data)){
-      return(h2(HTML(paste("Disposal rates in British Columbia (kg per person)"))))
+      return(h2(HTML(paste("Disposal Rates in British Columbia"))))
     }
     data <- yearly$data 
     data <- data[order(data$Year),]
     data <- data[1,]
-    rd <- h2(HTML(paste("Disposal rates in", data$Regional_District, "(kg per person)")))
+    rd <- h2(HTML(paste("Disposal Rates in", data$Regional_District)))
     pop <- paste("2016 Population:", format(data$Population, big.mark = ","))
     rate <- paste("2016 Disposal Rate:", data$Disposal_Rate_kg, "(kg / person)")
     HTML(paste(rd, pop, "<br>", rate))
