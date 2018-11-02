@@ -33,7 +33,7 @@ gg_bar_rd <- function(data, hline){
              tooltip = Label, 
              data_id = Regional_District)) + 
     geom_bar_interactive(stat = "identity") +
-    coord_flip() +
+    coord_flip(clip = 'off') +
     scale_fill_manual(values = c(msw_green, 
                                   msw_orange)) +
     theme_bw() +
@@ -56,8 +56,8 @@ gg_bar_rd <- function(data, hline){
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
     geom_hline(yintercept = hline, size = 0.3, color = msw_grey) +
-    annotate("text", 1.5, hline + 220, 
-                  label = paste0("B.C.\n(", format(hline, digits = 0), " kg / person)"),
+    annotate("text", -0.2, hline + 270, 
+                  label = paste0("B.C. (", format(hline, digits = 0), " kg / person)"),
               size = 4, color = msw_grey) 
 }
 

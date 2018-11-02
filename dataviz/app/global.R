@@ -17,6 +17,9 @@ stikine <- "Stikine (Unincorporated)"
 bc_title <- "British Columbia Disposal Rates"
 stikine_title <- "No Data for Stikine (Unincorporated)"
 
+line_size <- 0.5
+txt_size <- 11
+
 max_year <- max(district$Year, na.rm = TRUE)
 
 tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px; 
@@ -30,10 +33,6 @@ msw_hover <- "#808080"
 msw_select <- "#808080"
 msw_grey <- "#909090"
 msw_na <- "white"
-
-line_size <- 0.5
-txt_size <- 11
-
 tints <- rev(c("#485165", "#566179", "#64718D", "#7281A1", "#8091B5", "#8EA1C9", "#99AACE", "#A4B3D3", "#AFBCD8", "#BAC5DD", "#C5CEE2", "#D0D7E7", "#DBE0EC", "#E6E9F1", "#F1F2F6"))
 
 p1.w <- 900
