@@ -18,10 +18,10 @@ link <- read_csv('data/rd_report_links.csv')
 
 district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
-  ms_simplify()
+  ms_simplify(0.005)
 
 coastline <- bcmaps::bc_bound() %>%
-  ms_simplify(keep = 0.2)
+  ms_simplify(keep = 0.05)
 
 district %<>% st_intersection(coastline) 
   
@@ -95,8 +95,8 @@ create_tooltip <- function(data){
 
 district$Label <- create_tooltip(district)
 district %<>% mutate(Fill = if_else(Population > 100000, 
-                                    "Population > 100,000",
-                                    "Population < 100,000"))
+                                    "> 100,000",
+                                    "< 100,000"))
 
 indicator$Year %<>% factor()
 indicator$Label <- create_tooltip(indicator)

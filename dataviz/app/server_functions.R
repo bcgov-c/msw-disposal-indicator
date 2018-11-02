@@ -33,7 +33,8 @@ gg_bar_rd <- function(data, hline){
     geom_bar_interactive(stat = "identity") +
     coord_flip(clip = 'off') +
     scale_fill_manual(values = c(msw_green, 
-                                  msw_orange)) +
+                                  msw_orange), 
+                      name = "Population") +
     theme_bw() +
     scale_y_continuous(position = "right", 
                        breaks = c(0, cumsum(rep(1000/6, 6))),
@@ -43,8 +44,8 @@ gg_bar_rd <- function(data, hline){
     labs(x = NULL, y = "Disposal (kg / person)") +
     theme(axis.text = element_text(size = txt_size),
           legend.position = "bottom",
-          legend.title = element_blank(),
-          # legend.text = element_text(size = txt_size),
+          legend.title = element_text(size = txt_size), 
+          legend.text = element_text(size = txt_size), 
           axis.ticks.y = element_blank(),
           axis.ticks.x = element_line(color = msw_grey),
           axis.line.x = element_line(color = msw_grey, size = line_size),
