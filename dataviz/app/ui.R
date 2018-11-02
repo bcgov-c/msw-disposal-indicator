@@ -25,7 +25,7 @@ shinyUI(
                                  actionButton("sort_population", "Population", class = 'msw-button')
                      ))
                  ),
-                 withSpinner(girafeOutput(outputId = 'plot_rd', height = p1.h), color = msw_select, size = 0.8))
+                 girafeOutput(outputId = 'plot_rd', height = p1.h))
     ),
     fixedRow(align = "center",
              div(style = div_css(p1.w, p1.h),
