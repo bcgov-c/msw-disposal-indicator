@@ -41,13 +41,3 @@ p1.h <- 500
 p2.w <- 800
 p2.h <- 250
 
-select_html <- "<label>
-  <span>Sort by:  </span>
-<div class='select-style'>
-  <select id='sort'>
-    <option>Disposal Rate</option>
-    <option>Population</option>
-    <option>Name</option>
-  </select>
-</div>
-</label>"

@@ -92,13 +92,13 @@ gg_bar_year <- function(data){
 
 
 sort_data <- function(data, x){
-  if(x == "Population"){
+  if(x == "pop"){
     return(forcats::fct_reorder(data$Regional_District, data$Population))
   }
-  if(x == "Name"){
+  if(x == "name"){
     return(factor(data$Regional_District))
   }
-  if(x == "Disposal Rate"){
+  if(x == "rate"){
     return(forcats::fct_reorder(data$Regional_District, data$Disposal_Rate_kg))
   }
 }

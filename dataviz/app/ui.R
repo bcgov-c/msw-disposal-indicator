@@ -16,8 +16,14 @@ shinyUI(
     fixedRow(align = "center",
              div(style = div_css(p1.w, p1.h),
                  h2(paste("Regional District Disposal Rates", max_year)),
-                 div(style = paste("width:", translate_px(p1.w-95), "; text-align: right;"),
-                   HTML(select_html)
+                 div(class = "div-link", style = paste0("width:", translate_px(p1.w - 60), ";"),
+                     HTML(paste0("Click to sort by: ",
+                                 actionButton("sort_name", "Name", class = 'msw-button'),
+                                 " / ",
+                                 actionButton("sort_rate", "Disposal Rate", class = 'msw-button'),
+                                 " / ",
+                                 actionButton("sort_population", "Population", class = 'msw-button')
+                     ))
                  ),
                  girafeOutput(outputId = 'plot_rd', height = p1.h))
     ),

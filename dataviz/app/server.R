@@ -15,9 +15,14 @@
 shinyServer(function(input, output, session) {
   
   # ------------------------------- reactives ------------------------------------
-  rv_data <- reactiveValues(yearly = indicator_summary,
+  rv_data <- reactiveValues(sort_by = "rate",
+                            yearly = indicator_summary,
                             links = NULL,
                             title = bc_title)
+  
+  observeEvent(input$sort_name, {rv_data$sort_by = "name"})
+  observeEvent(input$sort_rate, {rv_data$sort_by = "rate"})
+  observeEvent(input$sort_population, {rv_data$sort_by = "pop"})
   
   observe({
     if(!is.null(input$plot_rd_selected) && input$plot_rd_selected != stikine){
@@ -48,7 +53,7 @@ shinyServer(function(input, output, session) {
   })
   
   district_data <- reactive({
-    district$Regional_District <- sort_data(district, input$sort)
+    district$Regional_District <- sort_data(district, rv_data$sort_by)
     district
   })
   
