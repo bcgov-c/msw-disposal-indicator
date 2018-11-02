@@ -15,7 +15,8 @@ shinyUI(
     includeCSS("www/style.css"),
     fixedRow(align = "center",
              div(style = div_css(p1.w, p1.h),
-                 h2(paste("Regional District Disposal Rates", max_year)),
+                 conditionalPanel("output.plot_rd",
+                   h2(paste("Regional District Disposal Rates", max_year)),
                  div(class = "div-link", style = paste0("width:", translate_px(p1.w - 38), ";"),
                      HTML(paste0(div("Sort by: ", class = 'msw-label'),
                                  actionButton("sort_name", "Name", class = 'msw-button'),
@@ -24,7 +25,7 @@ shinyUI(
                                  "/",
                                  actionButton("sort_population", "Population", class = 'msw-button')
                      ))
-                 ),
+                 )),
                  girafeOutput(outputId = 'plot_rd', height = p1.h))
     ),
     fixedRow(align = "center",
