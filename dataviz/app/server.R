@@ -15,14 +15,9 @@
 shinyServer(function(input, output, session) {
   
   # ------------------------------- reactives ------------------------------------
-  rv_data <- reactiveValues(sort_by = "rate",
-                            yearly = indicator_summary,
+  rv_data <- reactiveValues(yearly = indicator_summary,
                             links = NULL,
                             title = bc_title)
-  
-  observeEvent(input$sort_name, {rv_data$sort_by = "name"})
-  observeEvent(input$sort_rate, {rv_data$sort_by = "rate"})
-  observeEvent(input$sort_population, {rv_data$sort_by = "pop"})
   
   observe({
     if(!is.null(input$plot_rd_selected) && input$plot_rd_selected != stikine){
@@ -53,7 +48,7 @@ shinyServer(function(input, output, session) {
   })
   
   district_data <- reactive({
-    district$Regional_District <- sort_data(district, rv_data$sort_by)
+    district$Regional_District <- sort_data(district, input$sort)
     district
   })
   
@@ -85,13 +80,12 @@ shinyServer(function(input, output, session) {
     rd <- h2(HTML(paste("Disposal Rates in", data$Regional_District)))
     pop <- paste(max_year, "Population:", format(data$Population, big.mark = ","))
     rate <- paste(max_year, "Disposal Rate:", data$Disposal_Rate_kg, "(kg / person)")
-    HTML(paste(rd, pop, "<br>", rate))
+    HTML(paste0(rd, pop, " -- ", rate, " -- ", actionButton(inputId = "show_bc", "Show British Columbia", class = 'msw-button')))
   })
   
-  output$ui_show <- renderUI({
-    req(rv_data$links)
-    actionButton(inputId = "show_bc", "Show British Columbia", class = 'msw-button')
-  })
+  # output$ui_show <- renderUI({
+  #   req(rv_data$links)
+  # })
   
   # ------------------------------- render outputs ------------------------------------
   

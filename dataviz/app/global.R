@@ -32,11 +32,22 @@ msw_grey <- "#909090"
 msw_na <- "white"
 
 line_size <- 0.5
-txt_size <- 12
+txt_size <- 11
 
 tints <- rev(c("#485165", "#566179", "#64718D", "#7281A1", "#8091B5", "#8EA1C9", "#99AACE", "#A4B3D3", "#AFBCD8", "#BAC5DD", "#C5CEE2", "#D0D7E7", "#DBE0EC", "#E6E9F1", "#F1F2F6"))
 
 p1.w <- 900
-p1.h <- 550
+p1.h <- 500
 p2.w <- 800
-p2.h <- 300
+p2.h <- 250
+
+select_html <- "<label>
+  <span>Sort by:  </span>
+<div class='select-style'>
+  <select id='sort'>
+    <option>Disposal Rate</option>
+    <option>Population</option>
+    <option>Name</option>
+  </select>
+</div>
+</label>"

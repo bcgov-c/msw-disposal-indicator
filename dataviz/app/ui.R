@@ -13,29 +13,20 @@
 shinyUI(
   fluidPage(
     includeCSS("www/style.css"),
-    fluidRow(align = "center",
-      div(style = div_css(p1.w, p1.h),
-            h2(paste("Regional District Disposal Rates", max_year)),
-            div(class = "div-link", style = paste0("width:", translate_px(p1.w - 60), ";"),
-                HTML(paste0("Click to sort by: ",
-                            actionButton("sort_name", "Name", class = 'msw-button'),
-                            " / ",
-                            actionButton("sort_rate", "Disposal Rate", class = 'msw-button'),
-                            " / ",
-                            actionButton("sort_population", "Population", class = 'msw-button')
-                ))
-          ),
-          girafeOutput(outputId = 'plot_rd'))
+    fixedRow(align = "center",
+             div(style = div_css(p1.w, p1.h),
+                 h2(paste("Regional District Disposal Rates", max_year)),
+                 div(style = paste("width:", translate_px(p1.w-95), "; text-align: right;"),
+                   HTML(select_html)
+                 ),
+                 girafeOutput(outputId = 'plot_rd', height = p1.h))
     ),
-    fluidRow(align = "center",
+    fixedRow(align = "center",
+             div(style = div_css(p1.w, p1.h),
              uiOutput("ui_info"),
-               uiOutput("ui_resources", style = "display: inline-block;"),
-               uiOutput("ui_dl", style = "display: inline-block;"),
+             girafeOutput(outputId = 'plot_year', height = p2.h),
              br(),
-             div(style = paste("width:", translate_px(p2.w - 100), "; text-align: right;"),
-             uiOutput("ui_show")),
-             div(style = div_css(p2.w, p2.h),
-                 girafeOutput(outputId = 'plot_year'))
+             uiOutput("ui_resources", style = "display: inline-block;"),
+             uiOutput("ui_dl", style = "display: inline-block;"))
     ))
 )
-  
