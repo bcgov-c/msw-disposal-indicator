@@ -32,16 +32,3 @@ h2 {
   background: #E6E9F1;
   text-decoration: none;
 }
-
-#ui {
-  display: inline-block;
-}
-
-.loading-spinner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: -1;
-  margin-top: -33px;  /* half of the spinner's height */
-  margin-left: -33px; /* half of the spinner's width */
-}

@@ -3,6 +3,7 @@ library(shiny)
 library(ggiraph)
 library(patchwork)
 library(forcats)
+library(shinycssloaders)
 
 source("server_functions.R", local = TRUE)
 
