@@ -14,17 +14,18 @@ h2 {
     text-align: right;
 }
 
-.msw-link {
-  color: #808080;
-  text-decoration: underline;
-  font-size: 12px;
-}
-
 .msw-button {
-  font-size: 87%;
+  font-size: 11px;
   padding: 5px;
   border: 0px;
   text-decoration: underline;
+  margin-bottom: 2px
+}
+
+.msw-label {
+    font-size: 11px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 #swmPlan, #wComposition {

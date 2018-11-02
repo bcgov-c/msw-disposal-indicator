@@ -16,12 +16,12 @@ shinyUI(
     fixedRow(align = "center",
              div(style = div_css(p1.w, p1.h),
                  h2(paste("Regional District Disposal Rates", max_year)),
-                 div(class = "div-link", style = paste0("width:", translate_px(p1.w - 60), ";"),
-                     HTML(paste0("Click to sort by: ",
+                 div(class = "div-link", style = paste0("width:", translate_px(p1.w - 38), ";"),
+                     HTML(paste0(div("Sort by: ", class = 'msw-label'),
                                  actionButton("sort_name", "Name", class = 'msw-button'),
-                                 " / ",
+                                 "/",
                                  actionButton("sort_rate", "Disposal Rate", class = 'msw-button'),
-                                 " / ",
+                                 "/",
                                  actionButton("sort_population", "Population", class = 'msw-button')
                      ))
                  ),
