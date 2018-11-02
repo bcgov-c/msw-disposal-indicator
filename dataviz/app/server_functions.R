@@ -16,8 +16,6 @@ gg_map <- function(data){
                         size = 0.3, color = "black") +
     coord_sf(crs = 3005, datum = NA) +
     theme_void() +
-    # scale_fill_distiller(palette = "Blues", direction = 1,
-    #                     na.value = msw_na, name = "Disposal\n(kg / person)") +
     scale_fill_gradientn(colours = tints, na.value = msw_na, 
                          name = "Disposal\n(kg / person)") +
     theme(axis.text = element_blank(),
