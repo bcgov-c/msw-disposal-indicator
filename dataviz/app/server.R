@@ -97,13 +97,13 @@ shinyServer(function(input, output, session) {
   output$plot_rd <- renderGirafe({
     data <- district_data()
     hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == max_year]
-    girafe(code = print(gg_map(data) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
+    girafe(code = print(gg_map(district_fort) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
                                                                             widths = c(9, 4))), 
            width_svg = translate_in(p1.w), 
            height_svg = translate_in(p1.h)) %>%
       girafe_options(opts_selection(type = "single", 
-                                    css = paste0("fill: ", msw_select, ";")),
-                     opts_hover(css = paste0("fill: ", msw_hover, ";")), 
+                                    css = paste0("fill: ", hex_select, ";")),
+                     opts_hover(css = paste0("fill: ", hex_hover, ";")), 
                      opts_tooltip(css = tooltip_css, opacity = 1),
                      opts_toolbar(saveaspng = FALSE))
   })
@@ -114,7 +114,7 @@ shinyServer(function(input, output, session) {
     girafe(code = print(gg_bar_year(data)),
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
-      girafe_options(opts_hover(css = paste0("fill: ", msw_hover, ";")),
+      girafe_options(opts_hover(css = paste0("fill: ", hex_hover, ";")),
                      opts_tooltip(css = tooltip_css, opacity = 1),
                      opts_selection(type = "none"),
                      opts_toolbar(saveaspng = FALSE))

@@ -9,14 +9,17 @@ div_css <- function(w, h, extra = ""){
 # ------------------------------ ggplots
 gg_map <- function(data){
   ggplot() +
-    geom_sf_interactive(data = data, 
-                        aes(tooltip = Label, 
+    geom_polygon_interactive(data = data, 
+                        aes(x = long, 
+                            y = lat, 
+                            group = group,
+                            tooltip = Label, 
                             data_id = Regional_District,
                             fill = Disposal_Rate_kg),
                         size = 0.3, color = "black") +
-    coord_sf(crs = 3005, datum = NA) +
+    # coord_sf(crs = 3005) +
     theme_void() +
-    scale_fill_gradientn(colours = tints, na.value = msw_na, 
+    scale_fill_gradientn(colours = tints, na.value = hex_na, 
                          name = "Disposal\n(kg / person)") +
     theme(axis.text = element_blank(),
           legend.position = c(0.2, 0.135),
@@ -32,8 +35,8 @@ gg_bar_rd <- function(data, hline){
              data_id = Regional_District)) + 
     geom_bar_interactive(stat = "identity") +
     coord_flip(clip = 'off') +
-    scale_fill_manual(values = c(msw_green, 
-                                  msw_orange), 
+    scale_fill_manual(values = c(hex_bar1_1, 
+                                  hex_bar1_2), 
                       name = "Population") +
     theme_bw() +
     scale_y_continuous(position = "right", 
@@ -47,17 +50,17 @@ gg_bar_rd <- function(data, hline){
           legend.title = element_text(size = txt_size), 
           legend.text = element_text(size = txt_size), 
           axis.ticks.y = element_blank(),
-          axis.ticks.x = element_line(color = msw_grey),
-          axis.line.x = element_line(color = msw_grey, size = line_size),
+          axis.ticks.x = element_line(color = hex_axis),
+          axis.line.x = element_line(color = hex_axis, size = line_size),
           panel.border = element_blank(),
           axis.title = element_text(size = txt_size),
           panel.grid = element_blank(), 
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
-    geom_hline(yintercept = hline, size = 0.3, color = msw_grey) +
+    geom_hline(yintercept = hline, size = 0.3, color = hex_axis) +
     annotate("text", -0.2, hline + 270, 
                   label = paste0("B.C. (", format(hline, digits = 0), " kg / person)"),
-              size = 4, color = msw_grey) 
+              size = 4, color = hex_axis) 
 }
 
 gg_bar_year <- function(data){
@@ -66,7 +69,7 @@ gg_bar_year <- function(data){
              y = Disposal_Rate_kg,
              tooltip = Label,
              data_id = Year)) + 
-    geom_bar_interactive(stat = "identity", fill = msw_blue) +
+    geom_bar_interactive(stat = "identity", fill = hex_bar2) +
     scale_x_discrete(drop = FALSE, 
                      breaks = paste(seq(1990, max_year, 2)),
                      labels = paste(seq(1990, max_year, 2)),
@@ -81,8 +84,8 @@ gg_bar_year <- function(data){
     theme(legend.title = element_blank(),
           panel.grid = element_blank(),
           panel.border = element_blank(),
-          axis.line = element_line(color = msw_grey, size = line_size),
-          axis.ticks = element_line(color = msw_grey),
+          axis.line = element_line(color = hex_axis, size = line_size),
+          axis.ticks = element_line(color = hex_axis),
           axis.ticks.length=unit(.25, "cm"),
           axis.text = element_text(size = txt_size),
           axis.title = element_text(size = txt_size),
