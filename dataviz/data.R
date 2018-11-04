@@ -116,12 +116,17 @@ indicator_summary$Label <- create_tooltip(indicator_summary)
 
 indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
 
+district_fort <- fortify(district %>% as("Spatial"), region = "Regional_District") %>%
+  left_join(district %>% as.data.frame %>% select(Regional_District, Label, Disposal_Rate_kg, Fill, Year), by = c("id" = "Regional_District")) %>%
+  rename(Regional_District = id)
+
 # Save objects
 dir.create("dataviz/app/data", showWarnings = FALSE)
 
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
 saveRDS(district, file = "dataviz/app/data/district.rds")
+saveRDS(district_fort, file = "dataviz/app/data/district_fort.rds")
 saveRDS(coastline, file = "dataviz/app/data/coastline.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
