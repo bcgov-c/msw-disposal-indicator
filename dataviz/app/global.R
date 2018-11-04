@@ -3,7 +3,6 @@ library(shiny)
 library(ggiraph)
 library(patchwork)
 library(forcats)
-library(shades)
 
 source("server_functions.R", local = TRUE)
 
@@ -36,13 +35,14 @@ hex_select <- "#808080"
 hex_axis <- "#909090"
 hex_na <- "white"
 
-tinter_shader <- function(hex, steps, subtract){
-  shades <- rev(gradient(c(hex, "black"), steps = steps))[-(1:subtract)]
-  tints <- rev(gradient(c(hex, "white"), steps = steps))[-(1:subtract)]
+tinter_shader <- function(hex, steps = 10, crop = 2){
+  shades <- rev(grDevices::colorRampPalette(c(hex, "black"))(steps))[-(1:crop)]
+  tints <- rev(grDevices::colorRampPalette(c(hex, "white"))(steps))[-(1:crop)]
   c(tints, rev(shades))
 }
 
-tints <- tinter_shader("#8ea1c9", 10, 2) 
+hex_choro <- "#8ea1c9"
+tints <- tinter_shader(hex_choro)
 
 p1.w <- 900
 p1.h <- 550
