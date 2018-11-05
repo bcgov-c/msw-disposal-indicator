@@ -11,7 +11,6 @@ indicator <- readRDS("data/indicator.rds")
 indicator_summary <- readRDS("data/indicator_summary.rds") 
 district <- readRDS("data/district.rds") 
 district_fort <- readRDS("data/district_fort.rds")
-coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
 
 stikine <- "Stikine (Unincorporated)"
