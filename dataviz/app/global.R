@@ -9,7 +9,7 @@ source("server_functions.R", local = TRUE)
 # read data
 indicator <- readRDS("data/indicator.rds") 
 indicator_summary <- readRDS("data/indicator_summary.rds") 
-district <- readRDS("data/district.rds") %>% as.data.frame
+district <- readRDS("data/district.rds") 
 district_fort <- readRDS("data/district_fort.rds")
 coastline <- readRDS("data/coastline.rds")
 link <- readRDS("data/link.rds")
