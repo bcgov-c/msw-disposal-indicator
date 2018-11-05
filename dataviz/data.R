@@ -5,12 +5,13 @@ library(readr)
 library(magrittr)
 library(dplyr)
 library(stringr)
+library(ggplot2)
 library(rmapshaper)
 
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
-indicator <- read.csv('data/bcmunicipalsolidwastedisposal.csv')
-message("change 0 to NA - check with andy")
+indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
+message("changed indicator Disposal_Rate_kg with value 0 to NA")
 indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
 max_year <- max(indicator$Year, na.rm = T)
 
@@ -20,10 +21,8 @@ district <- bcmaps::combine_nr_rd() %>%
   select(Regional_District = ADMIN_AREA_NAME) %>%
   ms_simplify(0.005)
 
-coastline <- bcmaps::bc_bound() %>%
-  ms_simplify(keep = 0.05)
-
-district %<>% st_intersection(coastline) 
+district %<>% st_intersection(bcmaps::bc_bound() %>%
+                                 ms_simplify(keep = 0.05)) 
   
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
@@ -77,12 +76,14 @@ district <- district %>%
   rename(geometry = SHAPE) %>%
   st_set_geometry("geometry")
 
-# create tooltip labels and add to data
+# function to create tooltip labels 
 create_tooltip <- function(data){
   sprintf(
     "<strong>%s, %s</strong><br><strong>Waste disposal rate:</strong><br>%s<br><strong>Population:</strong> %s",
     data$Regional_District,
-    data$Year,
+    if_else(data$Regional_District == "Stikine (Unincorporated)", 
+            "", 
+            as.character(data$Year)),
     if_else(data$Regional_District == "Stikine (Unincorporated)", 
             "No Data", 
             paste(format(data$Disposal_Rate_kg, digits = 0), "kg / person")),
@@ -116,8 +117,13 @@ indicator_summary$Label <- create_tooltip(indicator_summary)
 
 indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
 
+# fortify spatial data for ggiraph::geom_polygon_interactive
+# because ggiraph::geom_sf_interactive cannot be deployed currently
 district_fort <- fortify(district %>% as("Spatial"), region = "Regional_District") %>%
-  left_join(district %>% as.data.frame %>% select(Regional_District, Label, Disposal_Rate_kg, Fill, Year), by = c("id" = "Regional_District")) %>%
+  left_join(district %>% 
+              as.data.frame %>% 
+              select(Regional_District, Label, Disposal_Rate_kg, Fill, Year) %>%
+              mutate(Regional_District = as.character(Regional_District)), by = c("id" = "Regional_District")) %>%
   rename(Regional_District = id)
 
 # Save objects
@@ -125,9 +131,8 @@ dir.create("dataviz/app/data", showWarnings = FALSE)
 
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
-saveRDS(district, file = "dataviz/app/data/district.rds")
+saveRDS(district %>% as.data.frame, file = "dataviz/app/data/district.rds")
 saveRDS(district_fort, file = "dataviz/app/data/district_fort.rds")
-saveRDS(coastline, file = "dataviz/app/data/coastline.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
 
