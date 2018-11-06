@@ -88,10 +88,6 @@ shinyServer(function(input, output, session) {
     HTML(paste0(rd, pop, spaces(4), rate, spaces(6), actionButton(inputId = "show_bc", "Show British Columbia", class = 'msw-button')))
   })
   
-  # output$ui_show <- renderUI({
-  #   req(rv_data$links)
-  # })
-  
   # ------------------------------- render outputs ------------------------------------
   
   output$plot_rd <- renderGirafe({
