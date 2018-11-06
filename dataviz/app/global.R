@@ -48,3 +48,6 @@ p1.h <- 550
 p2.w <- 800
 p2.h <- 250
 
+spaces <- function(n) {
+  paste0(rep("&nbsp;", n), collapse = "")
+}
