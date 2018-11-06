@@ -14,7 +14,7 @@ shinyUI(
   fluidPage(
     includeCSS("www/style.css"),
     fixedRow(align = "center",
-             div(style = div_css(p1.w, p1.h),
+             div(style = div_css(p1.w, p1.h + 15),
                  conditionalPanel("output.plot_rd",
                    h2(paste("Regional District Disposal Rates", max_year)),
                  div(class = "div-link", style = paste0("width:", translate_px(p1.w - 38), ";"),
