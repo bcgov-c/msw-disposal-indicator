@@ -58,9 +58,9 @@ gg_bar_rd <- function(data, hline){
           plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
           ) +
     geom_hline(yintercept = hline, size = 0.3, color = hex_axis) +
-    annotate("text", -0.2, hline + 270, 
-                  label = paste0("B.C. (", format(hline, digits = 0), " kg / person)"),
-              size = 4, color = hex_axis) 
+    annotate("text", -0.2, hline + 280, 
+             label = paste0("B.C. (", format(hline, digits = 0), " kg / person)"),
+             size = 4, colour = hex_axis) 
 }
 
 gg_bar_year <- function(data){
