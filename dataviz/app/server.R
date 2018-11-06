@@ -80,7 +80,7 @@ shinyServer(function(input, output, session) {
       return(h2(rv_data$title))
     }
     data <- rv_data$yearly 
-    data <- data[order(data$Year),]
+    data <- data[order(data$Year, decreasing = TRUE),]
     data <- data[1,]
     rd <- h2(HTML(paste("Disposal Rates in", data$Regional_District)))
     pop <- paste(max_year, "Population:<b>", format(data$Population, big.mark = ","), "</b>")
