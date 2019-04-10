@@ -26,21 +26,21 @@ old_msw <- read_csv(url)
 ## Data obtained from program area and put in data/ folder
 
 
-data_2016 <- read_csv("data/2016_disposal_rates.csv", trim_ws = TRUE, skip = 1) %>%
-  filter(Member != "All Entities Total") %>%
+data_2017 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 2, 
+                      n_max = 27, col_types = "ciddd") %>%
+  filter(Year == 2017) %>%
   mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
 # Skeena-Queen Charlotte is now North Coast; rename in old_msw before matching up with new:
-old_msw$Regional_District[old_msw$Regional_District == "Skeena-Queen Charlotte"] <- "North Coast"
+old_msw$Regional_District[old_msw$Regional_District == "Powell River"] <- "qathet"
 
-data_2016 %<>%
-  mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 2),
-         Year = 2016) %>%
+data_2017 %<>%
+  mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 1)) %>%
   select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
 
 
-msw <- bind_rows(old_msw, data_2016)
+msw <- bind_rows(old_msw, data_2017)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 
