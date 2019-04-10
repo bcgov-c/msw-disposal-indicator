@@ -7,3 +7,4 @@ data/
 *.pdf
 .DS_Store
 *.html
+out/
