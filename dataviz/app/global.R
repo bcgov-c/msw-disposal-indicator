@@ -13,14 +13,17 @@ district <- readRDS("data/district.rds")
 district_fort <- readRDS("data/district_fort.rds")
 link <- readRDS("data/link.rds")
 
-stikine <- "Stikine (Unincorporated)"
-bc_title <- "British Columbia Disposal Rates"
-stikine_title <- "No Data for Stikine (Unincorporated)"
-
 line_size <- 0.5
 txt_size <- 13
 
-max_year <- max(district$Year, na.rm = TRUE)
+years <- range(as.numeric(as.character(indicator$Year)), na.rm = TRUE)
+min_year <- years[1]
+max_year <- years[2]
+
+stikine <- "Stikine (Unincorporated)"
+bc_title <- paste0("British Columbia Disposal Rates ", 
+                   "(", min_year, "-", max_year, ")")
+stikine_title <- "No Data for Stikine (Unincorporated)"
 
 tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px; 
                 padding: 5px; box-shadow: 3px 3px 5px 0px #888888;

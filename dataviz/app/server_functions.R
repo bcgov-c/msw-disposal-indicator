@@ -8,6 +8,7 @@ div_css <- function(w, h, extra = ""){
 
 # ------------------------------ ggplots
 gg_map <- function(data){
+  yr <- max(data[["Year"]], na.rm = TRUE)
   ggplot() +
     geom_polygon_interactive(data = data, 
                         aes(x = long, 
@@ -20,13 +21,14 @@ gg_map <- function(data){
     # coord_sf(crs = 3005) +
     theme_void() +
     scale_fill_gradientn(colours = tints, na.value = hex_na, 
-                         name = "Disposal\n(kg / person)") +
+                         name = paste(yr, "Disposal\n(kg / person)")) +
     theme(axis.text = element_blank(),
           legend.position = c(0.2, 0.135),
           legend.title = element_text())
 }
 
 gg_bar_rd <- function(data, hline){
+  yr <- max(data[["Year"]], na.rm = TRUE)
   ggplot(data = na.omit(data) %>% as.data.frame,
          aes(x = Regional_District, 
              y = Disposal_Rate_kg,
@@ -44,7 +46,7 @@ gg_bar_rd <- function(data, hline){
                        labels = c(0, "", "", "", "", "", "1,000"), 
                        limits = c(0, 1000)) +
     scale_x_discrete(expand = expand_scale(0.03)) +
-    labs(x = NULL, y = "Disposal (kg / person)") +
+    labs(x = NULL, y = paste(yr, "Disposal\n(kg / person)")) +
     theme(axis.text = element_text(size = txt_size),
           legend.position = "bottom",
           legend.title = element_text(size = txt_size), 
