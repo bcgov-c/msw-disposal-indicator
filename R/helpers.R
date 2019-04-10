@@ -49,7 +49,7 @@ check_url <- function(x) {
     if (is.na(x[i])) {
       res[i] <- NA_character_
     } else {
-      res[[i]] <- tryCatch(GET(x[i]), error = function(e) return(NA))
+      res[[i]] <- tryCatch(GET(x[i], timeout(5)), error = function(e) return(NA))
     }
   }
   
