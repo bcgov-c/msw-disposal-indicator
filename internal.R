@@ -22,9 +22,18 @@ url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0
 
 old_msw <- read_csv(url)
 
-# Add 2016 data -----------------------------------------------------------
-## Data obtained from program area and put in data/ folder
+# Add 2017 data -----------------------------------------------------------
+## Data obtained from program area and put in 'data/' folder
 
+# There is an update to the 2016 data for Capital Regional District:
+crd_2016 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 34, 
+                     n_max = 1, col_types = "_i_dd", 
+                     col_names = c("Year", "Total_Disposed_Tonnes", "Population")) %>% 
+  mutate(Regional_District = "Capital")
+
+old_msw %>% filter(!(Regional_District == "Capital" & Year == 2016)) %>% 
+  bind_rows(crd_2016) %>% 
+  arrange(Regional_District, Year)
 
 data_2017 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 2, 
                       n_max = 27, col_types = "ciddd") %>%
@@ -32,7 +41,7 @@ data_2017 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 2,
   mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
-# Skeena-Queen Charlotte is now North Coast; rename in old_msw before matching up with new:
+# Powell River is now qathet; rename in old_msw before matching up with new:
 old_msw$Regional_District[old_msw$Regional_District == "Powell River"] <- "qathet"
 
 data_2017 %<>%
