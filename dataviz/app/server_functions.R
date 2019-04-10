@@ -24,7 +24,8 @@ gg_map <- function(data){
                          name = paste(yr, "Disposal\n(kg / person)")) +
     theme(axis.text = element_blank(),
           legend.position = c(0.2, 0.16),
-          legend.title = element_text())
+          legend.title = element_text(size = txt_size), 
+          legend.text = element_text(size = txt_size - 1))
 }
 
 gg_bar_rd <- function(data, hline){
