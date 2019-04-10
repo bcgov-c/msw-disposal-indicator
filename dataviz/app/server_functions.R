@@ -23,7 +23,7 @@ gg_map <- function(data){
     scale_fill_gradientn(colours = tints, na.value = hex_na, 
                          name = paste(yr, "Disposal\n(kg / person)")) +
     theme(axis.text = element_blank(),
-          legend.position = c(0.2, 0.135),
+          legend.position = c(0.2, 0.16),
           legend.title = element_text())
 }
 
