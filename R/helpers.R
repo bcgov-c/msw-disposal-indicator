@@ -14,11 +14,20 @@ library(dplyr)
 library(tidyr)
 library(httr)
 
-match_rd_names <- function(names_to_fix, reference_names, max_distance = 2) {
+match_rd_names <- function(names_to_fix, reference_names, max_distance = 1) {
   reference_names <- sort(unique(reference_names))
-  name_matches <- vapply(names_to_fix, function(x) {
+  name_matches <- lapply(names_to_fix, function(x) {
     agrep(x, reference_names, max.distance = max_distance)
-  }, FUN.VALUE = integer(1))
+  })
+  many_matches <- vapply(name_matches, function(x) length(x) > 1, FUN.VALUE = logical(1))
+  name_matches <- vapply(name_matches, `[[`, 1,  FUN.VALUE = integer(1))
+  if (any(many_matches)) {
+    warning("Name(s) matched by multiple values. Choosing the first:\n", 
+            paste0(names_to_fix[many_matches], ": ", 
+                  reference_names[name_matches[many_matches]], 
+                  collapse = "\n"), 
+            call. = FALSE)
+  }
   fixed_names <- reference_names[name_matches]
   fixed_names
 }
