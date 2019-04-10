@@ -1,6 +1,5 @@
 library(sf)
 library(bcmaps)
-library(bcmaps.rdata)
 library(readr)
 library(magrittr)
 library(dplyr)
@@ -10,7 +9,7 @@ library(rmapshaper)
 
 # Read data -----------------------------------------------------------------------------------------
 ### indicator data btained from BC Data Catolog and place in data/
-indicator <- read_csv('data/bcmunicipalsolidwastedisposal.csv')
+indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv')
 message("changed indicator Disposal_Rate_kg with value 0 to NA")
 indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
 max_year <- max(indicator$Year, na.rm = T)
@@ -36,7 +35,8 @@ district %<>%
 district$Regional_District %<>%
   str_replace(" Regional District", "") %>%
   str_replace("Regional District of ", "") %>%
-  str_replace(" ", "-")
+  str_replace(" ", "-") %>% 
+  str_replace("Powell-River", "qathet")
 
 ### fix those that shouldn't be hyphenated
 indicator$Regional_District %<>% as.character
@@ -69,12 +69,6 @@ indicator$Regional_District %<>%
 district <- district %>%
   left_join(indicator %>%
               filter(Year == max_year), "Regional_District")
-
-# rename sfc column, as some plotting packages only recognise sfc column called 'geometry'
-district <- district %>% 
-  as_tibble %>%
-  rename(geometry = SHAPE) %>%
-  st_set_geometry("geometry")
 
 # function to create tooltip labels 
 create_tooltip <- function(data){
