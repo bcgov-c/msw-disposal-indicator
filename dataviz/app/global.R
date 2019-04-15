@@ -30,12 +30,12 @@ tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px;
                 font-size: 12px; border-width 2px; border-color: black;"
 
 hex_bar2 <- "#808080"
-hex_bar1_1 <- "#6ac1a5"
-hex_bar1_2 <- "#fa8d67"
+hex_bar1_1 <- "#b2df8a"
+hex_bar1_2 <- "#33a02c"
 hex_hover <- "#808080"
 hex_select <- "#808080"
 hex_axis <- "#909090"
-hex_na <- "white"
+hex_na <- "grey80"
 
 tinter_shader <- function(hex, steps = 10, crop = 2){
   shades <- rev(grDevices::colorRampPalette(c(hex, "black"))(steps))[-(1:crop)]
@@ -43,8 +43,9 @@ tinter_shader <- function(hex, steps = 10, crop = 2){
   c(tints, rev(shades))
 }
 
-hex_choro <- "#8ea1c9"
-tints <- tinter_shader(hex_choro)
+hex_choro <- "#a6cee3"
+# tints <- tinter_shader(hex_choro)
+tints <- c('#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b')
 
 p1.w <- 900
 p1.h <- 550
