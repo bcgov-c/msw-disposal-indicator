@@ -13,6 +13,9 @@
 shinyUI(
   fluidPage(
     includeCSS("www/style.css"),
+    tags$head(
+      tags$meta(name = "robots", content = "noindex")
+    ),
     fixedRow(align = "center",
              div(style = div_css(p1.w, p1.h + 50),
                  conditionalPanel("output.plot_rd",
