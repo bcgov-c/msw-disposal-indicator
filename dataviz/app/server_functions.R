@@ -26,7 +26,9 @@ gg_map <- function(data){
     # coord_sf(crs = 3005) +
     theme_void() +
     scale_fill_gradientn(colours = tints, na.value = hex_na, 
-                         name = paste(yr, "Disposal\n(kg / person)")) +
+                         name = paste(yr, "Disposal\n(kg / person)"), 
+                         breaks = seq(300, 900, by = 150), 
+                         limits = c(300, 900)) +
     theme(axis.text = element_blank(),
           legend.position = c(0.2, 0.16),
           legend.title = element_text(size = txt_size), 
