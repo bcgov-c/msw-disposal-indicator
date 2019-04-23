@@ -29,11 +29,11 @@ tooltip_css <- "background: white; opacity: 1; color: black; border-radius: 5px;
                 padding: 5px; box-shadow: 3px 3px 5px 0px #888888;
                 font-size: 12px; border-width 2px; border-color: black;"
 
-hex_bar2 <- "#808080"
+hex_bar2 <- "#bebada"  #"#808080"
 hex_bar1_1 <- "#b2df8a"
 hex_bar1_2 <- "#33a02c"
-hex_hover <- "#808080"
-hex_select <- "#808080"
+hex_hover <- "#FFFF99"  #"#808080"
+hex_select <- "#bebada"  #"#808080"
 hex_axis <- "#909090"
 hex_na <- "grey80"
 

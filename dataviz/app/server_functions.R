@@ -16,12 +16,7 @@ gg_map <- function(data){
                             group = group,
                             tooltip = Label, 
                             data_id = Regional_District,
-                            fill = Disposal_Rate_kg,
-                            highlight = highlightOptions(
-                              weight = 3,
-                              color = "yellow",
-                              bringToFront = T
-                            )),
+                            fill = Disposal_Rate_kg),
                         size = 0.3, color = "black") +
     # coord_sf(crs = 3005) +
     theme_void() +
