@@ -12,9 +12,10 @@
 
 source("internal.R")
 
-mon_year <- format(Sys.Date(), "%b%Y")
+# mon_year <- format(Sys.Date(), "%b%Y")
+mon_year <- "April2019"
 outfile <- tolower(paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf"))
 
 rmarkdown::render("print_ver/Municipal_Solid_Waste_print_ver.Rmd",
                   output_file = outfile, params = list(input_source = "local"))
-extrafont::embed_fonts(file.path("print_ver", outfile))
+# extrafont::embed_fonts(file.path("print_ver", outfile))

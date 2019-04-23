@@ -1,6 +1,6 @@
 ---
 topic: sustainability
-title: "Municipal Solid Waste Disposal in B.C. (1990-2016)"
+title: "Municipal Solid Waste Disposal in B.C. (1990-2017)"
 output: envreportutils.internal::print_ver
 params:
   input_source:
@@ -76,35 +76,51 @@ Per-person disposal rate is an estimate of how many kilograms of solid
 waste one person sends to a landfill or other disposal site in a given
 year.
 
--   Approximately `r round(max_year_total / 1e6, 1)` million tonnes of municipal solid waste was
-disposed of in B.C. in `r max_year`. While there has been an overall
-decreasing trend in municipal solid waste disposal rates since the
-1990's, much of the waste disposed of could be reduced (by not being
-generated in the first place), repurposed, composted or recycled.
+-   Approximately `r round(max_year_total / 1e6, 1)` million tonnes of municipal 
+    solid waste was disposed of in B.C. in `r max_year`. While there has been an 
+    overall decreasing trend in municipal solid waste disposal rates since the
+    1990\'s, much of the waste disposed of could be reduced (by not
+    being generated in the first place), repurposed, composted or
+    recycled.
 -   Waste reduction efforts will become more and more important as the
-[B.C. population continues to
-increase](http://www.env.gov.bc.ca/soe/indicators/sustainability/bc-population.html),
-landfills approach their capacity for receiving new waste, and the
-imperative to reduce greenhouse gas emissions from waste
-disposal grows.
+    [B.C. population continues to
+    increase](http://www.env.gov.bc.ca/soe/indicators/sustainability/bc-population.html),
+    landfills approach their capacity for receiving new waste, and the
+    imperative to reduce greenhouse gas emissions from waste disposal
+    grows.
 -   Tracking waste disposal across B.C. is important as it provides
-historic trend information and the current status of waste
-disposal---both of which inform and guide efforts to reduce the amount
-of waste we create.
--   In `r max_year` British Columbians disposed of an average of `r round(max_year_rate)` kg of
-municipal solid waste per person---down `r abs(round(max_year_rate - comp_year_rate))` 
-kg per person from `r comp_year`.
+    historic trend information and the current status of waste
+    disposal---both of which inform and guide efforts to reduce the
+    amount of waste we create.
+-   In `r max_year` British Columbians disposed of an average of 
+    `r round(max_year_rate)` kg of municipal solid waste per person---down 
+    `r abs(round(max_year_rate - comp_year_rate))` kg per person from `r comp_year`.
+-   While BC is still experiencing an overall decreasing trend in
+    disposal rates, `r max_year` is the first year (since the current tracking
+    method began in `r comp_year`) where an increase over the previous year was
+    observed. Potential reasons for this include: a strong economy which
+    has led to higher consumption and tourism, and a strong real estate
+    market resulting in more waste generated from moving and the
+    renovation and/or demolition of old homes.
+-   Provincial initiatives which are expected to decrease waste disposal
+    rates despite strong economic cycles include [organics
+    diversion](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion),
+    [food waste
+    prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
+    and [extended producer
+    responsibility](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/product-stewardship)
+    programs.
 -   British Columbia has set provincial waste disposal targets with a
-long-term goal of lowering the municipal solid waste disposal rate
-to 350 kg per person by 2020.^[1](#fn1)^
+    long-term goal of lowering the municipal solid waste disposal rate
+    to 350 kg per person by 2020/21.^[1](#fn1)^
 -   Variability in disposal rates from one region to the next is
-influenced by factors such as population density, economic activity, 
-tourist and transient population fluctuations, 
-distance to recycling markets, the role of various stewardship
-agencies operating in an area and the capacity and infrastructure in
-place in a region. While disposal rate data don't tell the whole
-story, they are useful in setting the stage for continuous
-improvement in waste management in B.C.
+    influenced by factors such as population density, economic activity,
+    tourist and transient population fluctuations, distance to recycling
+    markets, the role of various stewardship agencies operating in an
+    area and the capacity and infrastructure in place in a region. While
+    disposal rate data don't tell the whole story, they are useful in
+    setting the stage for continuous improvement in waste management in
+    B.C.
 
 The charts below show the estimated per person weight of solid waste
 disposed of each regional district and the province as a
@@ -199,23 +215,25 @@ Waste that is reused or recycled is also not included.
 #### Interpreting the Data:
 
 -   `r max_year` disposal rates were provided by regional districts through the
-completion of the municipal solid waste disposal calculator.
+    completion of the municipal solid waste disposal calculator.
 -   Where no bar is shown on a chart for certain previous years, a
-verifiable estimate was not available.
+    verifiable estimate was not available.
 -   Historic disposal rates cannot be directly compared between years
-because the data were collected using different methods. However,
-the data from 2012 onward have been collected using the
-same methodology.
--   In some cases, waste from light industry may be included in the municipal 
-solid waste disposal rate data as it cannot be disaggregated.
--   Regional District population estimates are sourced from [BC       Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6). Squamish-Lillooet, East Kootenay, and Fraser Fort-George population estimates have been adjusted based on data submitted by the Regional Districts.
+    because the data were collected using different methods. However,
+    the data from `r comp_year` onward have been collected using the same
+    methodology.
+-   In some cases, waste from light industry may be included in the
+    municipal solid waste disposal rate data as it cannot be
+    disaggregated.
+-   Regional District population estimates are sourced from [BC
+    Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
+    Squamish-Lillooet and East Kootenay population estimates have been
+    adjusted based on data submitted by the Regional Districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
-as they handle their waste stream [together](http://www.cswm.ca/index.html).
-- The Skeena-Queen Charlotte Regional District is now called North Coast Regional District.
--   Beginning in 2014, the disposal rate for Northern Rockies was
-derived by removing 'bulky-waste commercial' from their
-disposal total. This waste stream comes from oil and gas industrial
-processes which is excluded from municipal solid waste.
+    as they handle their waste stream
+    [together](http://www.cswm.ca/index.html).
+-   The Powell River Regional District is now called qathet Regional
+    District.
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch at
@@ -225,20 +243,20 @@ also serve to inform future waste reporting methodology development. The  [**R**
 ### References and Other Useful Links:
 
 -   Find out where to recycle using the Recycling Council of British
-Columbia's [Recyclepedia App](http://www.rcbc.bc.ca/).
--   [Product Stewardship
-in B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
--   [Solid Waste Management Planning
-in B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
--   [British Columbia's *Environmental Management
-Act*](http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/03053_00)
--   [Waste Management Industry Survey: Business and Government Sectors.
-Statistics Canada (2013)
-(PDF)](http://www.statcan.gc.ca/pub/16f0023x/16f0023x2013001-eng.pdf)
--   [Waste Management in Canada. Statistics Canada (2012). See section
-3.1, Municipal solid waste.
-(PDF)](http://www.statcan.gc.ca/pub/16-201-x/16-201-x2012000-eng.pdf)
--   ^1^[British Columbia Ministry of Environment and Climate Change Strategy and the Environmental Assessment Office 2018/19 &ndash; 2020/21 Service Plan (February 2018) (PDF)](http://bcbudget.gov.bc.ca/2018/sp/pdf/ministry/env.pdf)
+    Columbia's [Recyclepedia
+    App](https://www.rcbc.ca/recyclepedia/search)
+-   [Product Stewardship in
+    B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
+-   [Solid Waste Management Planning in
+    B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
+-   [British Columbia\'s *Environmental Management
+    Act*](http://www.bclaws.ca/civix/document/id/complete/statreg/03053_00)
+-   [Solid Waste Generation in British Columbia: 2010-2025 Forecast
+    (report and fact sheet); BC
+    Stats (2012)](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EnvironmentalStatistics/Analysis.aspx)
+-   [^1^[British Columbia Ministry of Environment and Climate Change
+    Strategy 2019/20 -- 2021/22 Service Plan (February 2019)
+    (PDF)](https://www.bcbudget.gov.bc.ca/2019/sp/pdf/ministry/env.pdf)]
 
 ### Data
 
@@ -248,5 +266,5 @@ each file, as indicated in parentheses below.
 -   [Municipal Solid Waste Disposal,
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
-Published and Available On-Line at Environmental Reporting BC (May 2018):
+Published and Available On-Line at Environmental Reporting BC (April 2019):
 <http://www.env.gov.bc.ca/soe/indicators/waste/municipal-solid-waste.html>
