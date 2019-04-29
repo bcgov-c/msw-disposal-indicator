@@ -16,11 +16,15 @@ with this years yet-to-be published values, and creates the output data files
 to be uploaded to the BC Data Catalogue and subsequently used in the indicator. 
 This script requires input data from the Environmental Standards Branch. 
 
+The dataviz folder contains code to create a Shiny app for an interactive 
+data visualization used on the [indicator website](http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html).
+
 There is also one RMarkdown file associated with the indicator that generates the data visualizations and summary statistics.
 
 ### Getting Help or Reporting an Issue
 
-To report bugs/issues/feature requests, please file an [Issue](https://github.com/bcgov-c/msw-disposal-indicator/issues/).
+To report bugs/issues/feature requests, please file an 
+[Issue](https://github.com/bcgov/msw-disposal-indicator/issues/).
 
 ### How to Contribute
 
