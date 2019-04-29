@@ -5,8 +5,8 @@ account: bcgov-env
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 556621
-bundleId: 2047417
+bundleId: 2047949
 url: https://bcgov-env.shinyapps.io/bc-msw-disposal-rates/
-when: 1556561069.80102
+when: 1556574456.14114
 asMultiple: FALSE
 asStatic: FALSE
