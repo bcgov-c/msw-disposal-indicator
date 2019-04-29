@@ -20,7 +20,8 @@ source("R/helpers.R")
 # Get current data from BC Data Catalogue:
 url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 
-old_msw <- read_csv(url)
+old_msw <- read_csv(url) %>% 
+  filter(Year < 2017)
 
 # Add 2017 data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
@@ -31,7 +32,7 @@ crd_2016 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 34,
                      col_names = c("Year", "Total_Disposed_Tonnes", "Population")) %>% 
   mutate(Regional_District = "Capital")
 
-old_msw %>% filter(!(Regional_District == "Capital" & Year == 2016)) %>% 
+old_msw <- old_msw %>% filter(!(Regional_District == "Capital" & Year == 2016)) %>% 
   bind_rows(crd_2016) %>% 
   arrange(Regional_District, Year)
 
