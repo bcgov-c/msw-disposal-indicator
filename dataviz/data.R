@@ -1,4 +1,5 @@
 library(sf)
+library(lwgeom)
 library(bcmaps)
 library(readr)
 library(magrittr)
@@ -29,7 +30,9 @@ district$Regional_District[which(district$Regional_District %in% c("Comox Valley
 district %<>% 
   group_by(Regional_District) %>%
   summarise(do_union = FALSE) %>%
-  ungroup()
+  ungroup() %>% 
+  st_make_valid() %>% 
+  st_collection_extract("POLYGON")
 
 ### match district names by removing words and hyphenating
 district$Regional_District %<>%
@@ -113,7 +116,7 @@ indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
 
 # fortify spatial data for ggiraph::geom_polygon_interactive
 # because ggiraph::geom_sf_interactive cannot be deployed currently
-district_fort <- fortify(district %>% as("Spatial"), region = "Regional_District") %>%
+district_fort <- fortify(as(district, "Spatial"), region = "Regional_District") %>%
   left_join(district %>% 
               as.data.frame %>% 
               select(Regional_District, Label, Disposal_Rate_kg, Fill, Year) %>%
