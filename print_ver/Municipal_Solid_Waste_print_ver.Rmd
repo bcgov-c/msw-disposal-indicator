@@ -178,7 +178,7 @@ ggplot(msw, aes(x = Year, y = Disposal_Rate_kg, fill = Population_Category)) +
   geom_bar(stat = "identity", width = 0.6) +
   scale_fill_manual(values = brewer.pal(9, "Blues")[5:9]) + 
   facet_wrap(~Regional_District, ncol = 4, scales = "free_x") + 
-  labs(title = "Municipal Solid Waste disposal rates in B.C. Regional Districts, 1990-2016\n", 
+  labs(title = paste0("Municipal Solid Waste disposal rates in B.C. Regional Districts, 1990-", max_year, "\n"), 
        y = "Disposal Rate (kg / person)", fill = "Regional District\nPopulation") + 
   theme + 
   theme(legend.position = "bottom", legend.key.width = unit(1, "cm"), 
@@ -254,9 +254,9 @@ also serve to inform future waste reporting methodology development. The  [**R**
 -   [Solid Waste Generation in British Columbia: 2010-2025 Forecast
     (report and fact sheet); BC
     Stats (2012)](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EnvironmentalStatistics/Analysis.aspx)
--   [^1^[British Columbia Ministry of Environment and Climate Change
+-   ^1^[British Columbia Ministry of Environment and Climate Change
     Strategy 2019/20 -- 2021/22 Service Plan (February 2019)
-    (PDF)](https://www.bcbudget.gov.bc.ca/2019/sp/pdf/ministry/env.pdf)]
+    (PDF)](https://www.bcbudget.gov.bc.ca/2019/sp/pdf/ministry/env.pdf)
 
 ### Data
 
