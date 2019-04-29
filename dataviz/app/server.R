@@ -115,7 +115,8 @@ shinyServer(function(input, output, session) {
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
       girafe_options(opts_hover(css = paste0("fill: ", hex_hover, ";")),
-                     opts_tooltip(css = tooltip_css, opacity = 1),
+                     opts_tooltip(css = tooltip_css, opacity = 1, 
+                                  offx = 5, offy = -80),
                      opts_selection(type = "none"),
                      opts_toolbar(saveaspng = FALSE))
   })
