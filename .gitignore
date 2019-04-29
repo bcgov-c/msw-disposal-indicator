@@ -8,3 +8,5 @@ data/
 .DS_Store
 *.html
 out/
+print_ver/*.log
+print_ver/*.tex
