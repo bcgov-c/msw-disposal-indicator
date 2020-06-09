@@ -13,7 +13,7 @@
 source("internal.R")
 
 # mon_year <- format(Sys.Date(), "%b%Y")
-mon_year <- "April2019"
+mon_year <- "June2020"
 outfile <- tolower(paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf"))
 
 rmarkdown::render("print_ver/Municipal_Solid_Waste_print_ver.Rmd",
