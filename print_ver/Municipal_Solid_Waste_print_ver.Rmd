@@ -1,6 +1,5 @@
 ---
 topic: sustainability
-title: "Municipal Solid Waste Disposal in B.C. (1990-2017)"
 output: envreportutils.internal::print_ver
 params:
   input_source:
@@ -9,6 +8,7 @@ params:
     choices: [bcdc,local]
     input: select
 ---
+
 <!--
 Copyright 2018 Province of British Columbia
 
@@ -69,6 +69,10 @@ comp_year <- 2012
 comp_year_rate <- BC_data$Disposal_Rate_kg[BC_data$Year == comp_year]
 
 ```
+
+---
+title: "`r sprintf('Municipal Solid Waste Disposal in B.C. (1990-%s)', max_year)`"
+---
 
 This indicator reports the estimated amount of municipal solid waste
 disposed per person for each regional district and for British Columbia.
