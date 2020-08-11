@@ -277,4 +277,4 @@ each file, as indicated in parentheses below.
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
 Published and Available On-Line at Environmental Reporting BC (August 2020):
-<http://www.env.gov.bc.ca/soe/indicators/waste/municipal-solid-waste.html>
+<http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html>
