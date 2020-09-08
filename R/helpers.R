@@ -33,7 +33,7 @@ match_rd_names <- function(names_to_fix, reference_names, max_distance = 1) {
 }
 
 fill_years <- function(df) {
-  years <- dplyr::data_frame(Year = min(df$Year):max(df$Year))
+  years <- dplyr::tibble(Year = min(df$Year):max(df$Year))
   
   df2 <- dplyr::left_join(years, df, by = "Year")
   

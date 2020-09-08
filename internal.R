@@ -10,7 +10,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-library(magrittr)
 library(readr)
 library(dplyr)
 library(ggplot2)
@@ -20,41 +19,28 @@ source("R/helpers.R")
 # Get current data from BC Data Catalogue:
 url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 
-old_msw <- read_csv(url) %>% 
-  filter(Year < 2017)
+old_msw <- read_csv(url)
 
 # Add 2017 data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-# There is an update to the 2016 data for Capital Regional District:
-crd_2016 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 34, 
-                     n_max = 1, col_types = "_i_dd", 
-                     col_names = c("Year", "Total_Disposed_Tonnes", "Population")) %>% 
-  mutate(Regional_District = "Capital")
-
-old_msw <- old_msw %>% filter(!(Regional_District == "Capital" & Year == 2016)) %>% 
-  bind_rows(crd_2016) %>% 
-  arrange(Regional_District, Year)
-
-data_2017 <- read_csv("data/2017_disposal_rates.csv", trim_ws = TRUE, skip = 2, 
+data_2018 <- read_csv("data/2018_disposal_rates.csv", trim_ws = TRUE, skip = 2, 
                       n_max = 27, col_types = "ciddd") %>%
-  filter(Year == 2017) %>%
+  filter(Year == 2018) %>%
   mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
-# Powell River is now qathet; rename in old_msw before matching up with new:
-old_msw$Regional_District[old_msw$Regional_District == "Powell River"] <- "qathet"
 
-data_2017 %<>%
+data_2018 <- data_2018 %>% 
   mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 1)) %>%
   select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
 
 
-msw <- bind_rows(old_msw, data_2017)
+msw <- bind_rows(old_msw, data_2018)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 
-msw %<>%
+msw <- msw %>% 
   mutate(Regional_District = ifelse(grepl("Comox|Strathcona", Regional_District),
                                     "Comox-Strathcona", Regional_District)) %>%
   group_by(Regional_District, Year) %>%
@@ -68,7 +54,7 @@ msw %<>%
 # ----------------------------------------------------------------------------
 ## Calculate provincial totals and calculate per-capita disposal in kg, and fill in years
 
-msw %<>%
+msw <- msw %>% 
   group_by(Year) %>%
   filter(n() > 25) %>% # Only calculate prov totals when more than 25 RDs reported
   summarise(Regional_District = "British Columbia",

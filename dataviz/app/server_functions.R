@@ -48,7 +48,7 @@ gg_bar_rd <- function(data, hline){
                        breaks = c(0, cumsum(rep(1000/6, 6))),
                        labels = c(0, "", "", "", "", "", "1,000"), 
                        limits = c(0, 1000)) +
-    scale_x_discrete(expand = expand_scale(0.03)) +
+    scale_x_discrete(expand = expansion(0.03)) +
     labs(x = NULL, y = paste(yr, "Disposal\n(kg / person)")) +
     theme(axis.text = element_text(size = txt_size),
           legend.position = "bottom",
@@ -78,7 +78,7 @@ gg_bar_year <- function(data){
     scale_x_discrete(drop = FALSE, 
                      breaks = paste(seq(1990, max_year, 2)),
                      labels = paste(seq(1990, max_year, 2)),
-                     expand = expand_scale(0.04)) +
+                     expand = expansion(0.04)) +
     scale_y_continuous(expand = c(0,0), 
                        breaks = c(0, 500, 1000, 1500, 2000),
                        labels = c("0", "500", "1,000", "1,500", "2,000"),

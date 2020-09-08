@@ -100,7 +100,8 @@ shinyServer(function(input, output, session) {
     girafe(code = print(gg_map(district_fort) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
                                                                             widths = c(9, 4))), 
            width_svg = translate_in(p1.w), 
-           height_svg = translate_in(p1.h)) %>%
+           height_svg = translate_in(p1.h), 
+           fonts = list(sans = "Roboto")) %>%
       girafe_options(opts_selection(type = "single", 
                                     css = paste0("fill: ", hex_select, ";")),
                      opts_hover(css = paste0("fill: ", hex_hover, ";")), 
