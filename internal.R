@@ -21,22 +21,22 @@ url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0
 
 old_msw <- read_csv(url)
 
-# Add 2017 data -----------------------------------------------------------
+# Add 2019 data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-data_2018 <- read_csv("data/2018_disposal_rates.csv", trim_ws = TRUE, skip = 2, 
-                      n_max = 27, col_types = "ciddd") %>%
-  filter(Year == 2018) %>%
-  mutate(Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
+data_2019 <- read_csv("data/2019_disposal_rates.csv", trim_ws = TRUE, skip = 3, 
+                      n_max = 27, col_types = "cddd") %>%
+  mutate(Year = 2019,
+         Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
 
-data_2018 <- data_2018 %>% 
+data_2019 <- data_2019 %>% 
   mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 1)) %>%
   select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
 
 
-msw <- bind_rows(old_msw, data_2018)
+msw <- bind_rows(old_msw, data_2019)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 
@@ -90,10 +90,10 @@ dir.create("out", showWarnings = FALSE)
 ## Remove BC totals for the DataBC version
 msw %>%
   filter(Regional_District != "British Columbia") %>%
-  write_csv(path = "out/BC_Municipal_Solid_Waste_Disposal.csv", na = "")
+  write_csv(file = "out/BC_Municipal_Solid_Waste_Disposal.csv", na = "")
 
 ## Write out a file for use in d3 dataviz on the web.
 msw %>% 
   left_join(reports.df, by = "Regional_District") %>% 
   select(-ends_with("_check")) %>%
-  write_csv(path = "out/BC_Municipal_Solid_Waste_Disposal_viz.csv")
+  write_csv(file = "out/BC_Municipal_Solid_Waste_Disposal_viz.csv")
