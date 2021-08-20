@@ -68,6 +68,9 @@ comp_year <- 2012
 
 comp_year_rate <- BC_data$Disposal_Rate_kg[BC_data$Year == comp_year]
 
+min_rate <- min(BC_data$Disposal_Rate_kg)
+
+min_rate_year <- max(BC_data$Year[BC_data$Disposal_Rate_kg == min_rate])
 ```
 
 ---
@@ -76,8 +79,8 @@ title: "`r sprintf('Municipal Solid Waste Disposal in B.C. (1990-%s)', max_year)
 
 This indicator reports the estimated amount of municipal solid waste
 disposed per person for each regional district and for British Columbia.
-Per-person disposal rate is an estimate of how many kilograms of solid
-waste each BC resident sends to a landfill or other disposal site in a
+The per-person disposal rate is an estimate of how many kilograms of solid
+waste each B.C. resident sends to a landfill or other disposal site in a
 given year.
 
 -   Approximately `r round(max_year_total / 1e6, 1)` million tonnes of municipal 
@@ -99,24 +102,15 @@ given year.
 -   In `r max_year` British Columbians disposed of an
     average of `r round(max_year_rate)` kg of municipal solid
     waste per person---down `r abs(round(max_year_rate -
-    comp_year_rate))` kg per person from `r comp_year`. This
-    is a 1 kg/person decrease from the 2017 year. Potential
-    reasons for the higher disposal rate in the last two years
-    include strong economic activity (e.g. strong real estate
-    markets leading to increased building demolition and
-    renovation waste, and high tourism) in some regional
-    districts.
--   Provincial initiatives which are expected to decrease waste disposal
-    rates despite strong economic cycles include the Plastics Action
-    Plan, [organics
+    comp_year_rate))` kg per person from `r comp_year`, though higher 
+    than the low of `r min_rate` kg per persion in `r min_rate_year`.
+-   Provincial initiatives which support decreases in waste disposal
+    rates include the CleanBC [Plastics Action Plan](https://cleanbc.gov.bc.ca/app/uploads/sites/436/2019/08/CleanBC_PlasticsActionPlan_ConsultationPaper_07252019_B.pdf), [organics
     diversion](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion), [food
     waste
     prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
     and [extended producer
-    responsibility](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/product-stewardship) programs.
--   British Columbia has set provincial waste disposal targets with a
-    long-term goal of lowering the municipal solid waste disposal rate
-    to 350 kg per person by 2020/21.^[1](#fn1)^
+    responsibility (recycling)](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/product-stewardship) programs, and funding for organics infrastructure and collection.
 -   Variability in disposal rates from one region to the next is
     influenced by factors such as population density, economic activity,
     tourist and transient population fluctuations, distance to recycling
@@ -127,7 +121,7 @@ given year.
     B.C.
 
 The charts below show the estimated per person weight of solid waste
-disposed of in 2018 for each regional district and the province as a
+disposed of in `r max_year` for each regional district and the province as a
 whole, as well as a history of disposal rates for each region.
 
 ```{r bc-plot, fig.height=3.5, echo=FALSE, message=FALSE, warning=FALSE, error=TRUE}
@@ -218,8 +212,7 @@ Waste that is reused or recycled is also not included.
 
 #### Interpreting the Data:
 
--   `r max_year` disposal rates were provided by regional districts through the
-    completion of the municipal solid waste disposal calculator.
+-   `r max_year` disposal rates were provided by regional districts.
 -   Where no bar is shown on a chart for certain previous years, a
     verifiable estimate was not available.
 -   Historic disposal rates cannot be directly compared between years
@@ -229,21 +222,20 @@ Waste that is reused or recycled is also not included.
 -   In some cases, waste from light industry may be included in the
     municipal solid waste disposal rate data as it cannot be
     disaggregated.
--   Regional District population estimates are sourced from [BC
+-   Regional District population estimates are sourced from [BC
     Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
     Squamish-Lillooet, Alberni-Clayoquot, Bulkley-Nechako and East
-    Kootenay population estimates have been adjusted based on data
-    submitted by the Regional Districts.
+    Kootenay population estimates have been adjusted to take into account tourist populations, 
+    based on data submitted by the Regional Districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
-    stream [together](http://www.cswm.ca/index.html).
--   The Powell River Regional District is now called qathet Regional
-    District.
+    stream [together](http://www.cswm.ca/index.html).
 
 Regional districts that wish to update the waste disposal data reported
-above should contact the Environmental Standards Branch at
-<envprotdiv@Victoria1.gov.bc.ca>. Input from regional districts will
-also serve to inform future waste reporting methodology development. The  [**R**](http://www.r-project.org) code supporting this indicator is [available on GitHub](https://github.com/bcgov/msw-disposal-indicator).
+above should contact the Environmental Standards Branch. Input from regional districts will
+also serve to inform future waste reporting methodology development. 
+
+The  [**R**](http://www.r-project.org) code supporting this indicator is [available on GitHub](https://github.com/bcgov/msw-disposal-indicator).
 
 ### References and Other Useful Links:
 
@@ -264,7 +256,7 @@ also serve to inform future waste reporting methodology development. The  [**R**
     (report and fact sheet); BC
     Stats (2012)](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EnvironmentalStatistics/Analysis.aspx)
 
--   ^1^[British Columbia Ministry of Environment and Climate Change
+-   [British Columbia Ministry of Environment and Climate Change
     Strategy 20120/21 -- 2022/23 Service Plan (February 2019)
     (PDF)](https://www.bcbudget.gov.bc.ca/2020/sp/pdf/ministry/env.pdf)
 
@@ -276,5 +268,5 @@ each file, as indicated in parentheses below.
 -   [Municipal Solid Waste Disposal,
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
-Published and Available On-Line at Environmental Reporting BC (August 2020):
+Published and Available On-Line at Environmental Reporting BC (September 2021):
 <http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html>
