@@ -68,9 +68,9 @@ comp_year <- 2012
 
 comp_year_rate <- BC_data$Disposal_Rate_kg[BC_data$Year == comp_year]
 
-min_rate <- min(BC_data$Disposal_Rate_kg)
+min_rate <- min(BC_data$Disposal_Rate_kg, na.rm = TRUE)
 
-min_rate_year <- max(BC_data$Year[BC_data$Disposal_Rate_kg == min_rate])
+min_rate_year <- max(BC_data$Year[BC_data$Disposal_Rate_kg == min_rate], na.rm = TRUE)
 ```
 
 ---
@@ -89,7 +89,7 @@ given year.
     1990\'s, much of the waste disposed of could be reduced (by not
     being generated in the first place), repurposed, composted or
     recycled.
--   Waste reduction efforts will become more and more important as
+-   Waste reduction efforts have become more and more important as
     the [B.C. population continues to
     increase](http://www.env.gov.bc.ca/soe/indicators/sustainability/bc-population.html),
     landfills approach their capacity for receiving new waste, and the
