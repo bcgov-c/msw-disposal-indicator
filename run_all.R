@@ -14,7 +14,7 @@ source("internal.R")
 
 # mon_year <- format(Sys.Date(), "%b%Y")
 mon_year <- "Sept2021"
-outfile <- tolower(paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf"))
+outfile <- paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf")
 
 rmarkdown::render("print_ver/Municipal_Solid_Waste_print_ver.Rmd",
                   output_file = outfile, params = list(input_source = "local"))
