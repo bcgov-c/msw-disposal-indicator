@@ -5,9 +5,9 @@ account: bcgov-env
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4517581
-bundleId: 4946631
+bundleId: 4960297
 url: https://bcgov-env.shinyapps.io/bc-msw-1990-2019/
-when: 1629501229.47078
-lastSyncTime: 1629501229.4708
+when: 1629848693.19184
+lastSyncTime: 1629848693.19186
 asMultiple: FALSE
 asStatic: FALSE
