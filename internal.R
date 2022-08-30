@@ -21,22 +21,21 @@ url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0
 
 old_msw <- read_csv(url)
 
-# Add 2019 data -----------------------------------------------------------
+# Add 2020 data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-data_2019 <- read_csv("data/2019_disposal_rates.csv", trim_ws = TRUE, skip = 3, 
-                      n_max = 27, col_types = "cddd") %>%
-  mutate(Year = 2019,
+data_2020 <- read_csv("data/2020-MSW-Disposal-ERBC1.csv") %>%
+  mutate(Year = 2020,
          Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
 
-data_2019 <- data_2019 %>% 
+data_2020 <- data_2020 %>% 
   mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 1)) %>%
-  select(Regional_District, Year, Population, Total_Disposed_Tonnes = `Total Disposal (Tonnes)`)
+  select(Regional_District, Year, Population, Total_Disposed_Tonnes)
 
 
-msw <- bind_rows(old_msw, data_2019)
+msw <- bind_rows(old_msw, data_2020)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 

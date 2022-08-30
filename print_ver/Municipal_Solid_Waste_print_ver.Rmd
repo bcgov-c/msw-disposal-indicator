@@ -4,7 +4,7 @@ output: envreportutils.internal::print_ver
 params:
   input_source:
     label: "Input Source:"
-    value: bcdc
+    value: local
     choices: [bcdc,local]
     input: select
 ---
@@ -37,7 +37,7 @@ library(readr)
 input <- if (params$input_source == "bcdc") {
   "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 } else if (params$input_source == "local") {
-  "../out/BC_Municipal_Solid_Waste_Disposal.csv"
+  "./out/BC_Municipal_Solid_Waste_Disposal.csv"
 } else {
   stop("Invalid input source")
 }
@@ -99,24 +99,24 @@ given year.
     historic trend information and the current status of waste
     disposal---both of which inform and guide efforts to reduce the
     amount of waste we create.
--   In `r max_year` British Columbians disposed of an
+-   In `r max_year`, British Columbians disposed of an
     average of `r round(max_year_rate)` kg of municipal solid
     waste per person---down `r abs(round(max_year_rate -
     comp_year_rate))` kg per person from `r comp_year`, though higher 
-    than the low of `r min_rate` kg per persion in `r min_rate_year`.
+    than the low of `r min_rate` kg per person in `r min_rate_year`.
 -   Provincial initiatives which support decreases in waste disposal
     rates include the CleanBC [Plastics Action Plan](https://cleanbc.gov.bc.ca/app/uploads/sites/436/2019/08/CleanBC_PlasticsActionPlan_ConsultationPaper_07252019_B.pdf), [organics
     diversion](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion), [food
     waste
     prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
     and [extended producer
-    responsibility (recycling)](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/product-stewardship) programs, and funding for organics infrastructure and collection.
+    responsibility (recycling)](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/extended-producer-responsibility) programs, and funding for organics infrastructure and collection.
 -   Variability in disposal rates from one region to the next is
     influenced by factors such as population density, economic activity,
     tourist and transient population fluctuations, distance to recycling
     markets, the role of various stewardship agencies operating in an
     area and the capacity and infrastructure in place in a region. While
-    disposal rate data don't tell the whole story, they are useful in
+    disposal rate data do not tell the whole story, they are useful in
     setting the stage for continuous improvement in waste management in
     B.C.
 
@@ -224,7 +224,7 @@ Waste that is reused or recycled is also not included.
     disaggregated.
 -   Regional District population estimates are sourced from [BC
     Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
-    Squamish-Lillooet, Alberni-Clayoquot, Bulkley-Nechako and East
+    Squamish-Lillooet and East
     Kootenay population estimates have been adjusted to take into account tourist populations, 
     based on data submitted by the Regional Districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
@@ -254,11 +254,11 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
 
 -   [Solid Waste Generation in British Columbia: 2010-2025 Forecast
     (report and fact sheet); BC
-    Stats (2012)](http://www.bcstats.gov.bc.ca/StatisticsBySubject/EnvironmentalStatistics/Analysis.aspx)
+    Stats (2012)](https://www2.gov.bc.ca/assets/gov/data/statistics/nature-environment/solid_waste_generation_2010_2025.pdf)
 
 -   [British Columbia Ministry of Environment and Climate Change
-    Strategy 20120/21 -- 2022/23 Service Plan (February 2019)
-    (PDF)](https://www.bcbudget.gov.bc.ca/2020/sp/pdf/ministry/env.pdf)
+    Strategy 2021/22 -- 2023/24 Service Plan (April 2021)
+    (PDF)](https://www.bcbudget.gov.bc.ca/2021/sp/pdf/ministry/env.pdf)
 
 ### Data
 
