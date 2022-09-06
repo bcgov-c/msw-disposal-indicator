@@ -101,8 +101,7 @@ given year.
     amount of waste we create.
 -   In `r max_year`, British Columbians disposed of an
     average of `r round(max_year_rate)` kg of municipal solid
-    waste per person---down `r abs(round(max_year_rate -
-    comp_year_rate))` kg per person from `r comp_year`, though higher 
+    waste per person---down `r abs(max_year_rate - comp_year_rate)` kg per person from `r comp_year`, though higher 
     than the low of `r min_rate` kg per person in `r min_rate_year`.
 -   Provincial initiatives which support decreases in waste disposal
     rates include the CleanBC [Plastics Action Plan](https://cleanbc.gov.bc.ca/app/uploads/sites/436/2019/08/CleanBC_PlasticsActionPlan_ConsultationPaper_07252019_B.pdf), [organics
@@ -110,13 +109,12 @@ given year.
     waste
     prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
     and [extended producer
-    responsibility (recycling)](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/extended-producer-responsibility) programs, and funding for organics infrastructure and collection.
+    responsibility (recycling)](https://www2.gov.bc.ca/gov/content/environment/waste-management/recycling/extended-producer-responsibility) programs, and funding for [organics infrastructure](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion/organics-infrastructure-program) and [collection](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion/cleanbc-organic-infrastructure-and-collection-program).
 -   Variability in disposal rates from one region to the next is
     influenced by factors such as population density, economic activity,
     tourist and transient population fluctuations, distance to recycling
     markets, the role of various stewardship agencies operating in an
-    area and the capacity and infrastructure in place in a region. While
-    disposal rate data do not tell the whole story, they are useful in
+    area and the capacity and infrastructure in place in a region. While disposal rate data do not tell the whole story, they are useful in
     setting the stage for continuous improvement in waste management in
     B.C.
 
@@ -229,7 +227,7 @@ Waste that is reused or recycled is also not included.
     based on data submitted by the Regional Districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
-    stream [together](http://www.cswm.ca/index.html).
+    streams [together](http://www.cswm.ca/index.html).
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch. Input from regional districts will

@@ -100,7 +100,7 @@ indicator$Year %<>% factor()
 indicator$Label <- create_tooltip(indicator)
 
 indicator_summary <- indicator %>% 
-  filter(!is.na(Disposal_Rate_kg)) %>%
+  filter(!is.na(Population)) %>%
   group_by(Year) %>% 
   filter(n() >= 24) %>% # Only calculate prov totals when at least 24 RDs reported
   summarise(Regional_District = "British Columbia",
