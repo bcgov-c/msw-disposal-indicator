@@ -80,9 +80,9 @@ gg_bar_year <- function(data){
                      labels = paste(seq(1990, max_year, 2)),
                      expand = expansion(0.04)) +
     scale_y_continuous(expand = c(0,0), 
-                       breaks = c(0, 500, 1000, 1500, 2000),
-                       labels = c("0", "500", "1,000", "1,500", "2,000"),
-                       limits = c(0, max(indicator$Disposal_Rate_kg, na.rm = T))) +
+                       breaks = c(0, 250, 500, 750, 1000),
+                       labels = c("0", "250", "500", "750", "1,000"),
+                       limits = c(0, 1000)) +
     scale_fill_manual(drop = FALSE) +
     labs(x = NULL, y = "Disposal (kg / person)") +
     theme_bw() +
