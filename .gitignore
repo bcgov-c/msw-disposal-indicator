@@ -10,3 +10,4 @@ data/
 out/
 print_ver/*.log
 print_ver/*.tex
+misc/
