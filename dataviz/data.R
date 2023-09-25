@@ -83,7 +83,7 @@ create_tooltip <- function(data){
             as.character(data$Year)),
     if_else(data$Regional_District == "Stikine (Unincorporated)", 
             "No Data", 
-            paste(format(data$Disposal_Rate_kg, digits = 0), "kg / person")),
+            paste(format(data$Disposal_Rate_kg), "kg / person")),
     if_else(data$Regional_District == "Stikine (Unincorporated)", 
             "No Data", 
             paste(format(data$Population, big.mark = ",")))
