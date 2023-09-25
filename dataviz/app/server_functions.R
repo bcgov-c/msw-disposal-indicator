@@ -64,7 +64,7 @@ gg_bar_rd <- function(data, hline){
           ) +
     geom_hline(yintercept = hline, size = 0.3, color = hex_axis) +
     annotate("text", -0.2, hline + 280, 
-             label = paste0("B.C. (", format(hline, digits = 0), " kg / person)"),
+             label = paste0("B.C. (", format(hline), " kg / person)"),
              size = 4, colour = hex_axis) 
 }
 
