@@ -13,18 +13,19 @@
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(bcdata)
 
 source("R/helpers.R")
 
 # Get current data from BC Data Catalogue:
-url <- "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
+# web link: "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 
-old_msw <- read_csv(url)
+current_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
 
-# Add 2020 data -----------------------------------------------------------
+# Add new data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-data_2020 <- read_csv("data/2020-MSW-Disposal-ERBC1.csv") %>%
+data_2020 <- read_csv("data/2020-MSW-Disposal.csv") %>%
   mutate(Year = 2020,
          Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
