@@ -8,9 +8,15 @@ library(stringr)
 library(ggplot2)
 library(rmapshaper)
 
-# Read data -----------------------------------------------------------------------------------------
-### indicator data btained from BC Data Catolog and place in data/
-indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv')
+# Read data 2 options here -----------------------------------------------------------------------------------------
+### indicator data obtained from BC Data Catalogue 
+indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
+  mutate(Year = as.numeric(Year))
+
+
+### OR if stored locally, bring in updated data this way
+indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv') 
+
 message("changed indicator Disposal_Rate_kg with value 0 to NA")
 indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
 max_year <- max(indicator$Year, na.rm = T)
@@ -27,7 +33,8 @@ district %<>% st_intersection(bcmaps::bc_bound() %>%
 # Check/fix joins by regional district name -----------------------------------------------------------
 ### combine Comox and Strathcona into multipolygon
 district$Regional_District[which(district$Regional_District %in% c("Comox Valley Regional District", "Strathcona Regional District"))] <- "Comox-Strathcona"
-district %<>% 
+
+district <- district |> 
   group_by(Regional_District) %>%
   summarise(do_union = FALSE) %>%
   ungroup() %>% 
@@ -116,20 +123,18 @@ indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
 
 # fortify spatial data for ggiraph::geom_polygon_interactive
 # because ggiraph::geom_sf_interactive cannot be deployed currently
-district_fort <- fortify(as(district, "Spatial"), region = "Regional_District") %>%
-  left_join(district %>% 
-              as.data.frame %>% 
-              select(Regional_District, Label, Disposal_Rate_kg, Fill, Year) %>%
-              mutate(Regional_District = as.character(Regional_District)), by = c("id" = "Regional_District")) %>%
-  rename(Regional_District = id)
+# district_fort <- district %>%
+#   st_drop_geometry() |> 
+#   select(Regional_District, Label, Disposal_Rate_kg, Fill, Year) %>%
+#   mutate(Regional_District = as.character(Regional_District)) 
 
 # Save objects
 dir.create("dataviz/app/data", showWarnings = FALSE)
 
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
-saveRDS(district %>% as.data.frame, file = "dataviz/app/data/district.rds")
-saveRDS(district_fort, file = "dataviz/app/data/district_fort.rds")
+saveRDS(district, file = "dataviz/app/data/district.rds")
+#saveRDS(district_fort, file = "dataviz/app/data/district_fort.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
 
