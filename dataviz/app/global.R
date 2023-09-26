@@ -3,6 +3,8 @@ library(shiny)
 library(ggiraph)
 library(patchwork)
 library(forcats)
+library(sf)
+library(bcdata)
 
 source("server_functions.R", local = TRUE)
 
