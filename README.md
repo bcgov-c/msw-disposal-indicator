@@ -10,11 +10,14 @@ The data used for the indicator is available from the [B.C. Data Catalogue](http
 
 ### Code
 
+**For envreportbc team members that need to update the dataset:**  
 There is one R script, `internal.R` which loads and combines the published 
 [open data](https://catalogue.data.gov.bc.ca/dataset/bc-municipal-solid-waste-disposal-rates) 
 with this years yet-to-be published values, and creates the output data files 
 to be uploaded to the BC Data Catalogue and subsequently used in the indicator. 
 This script requires input data from the Environmental Standards Branch. 
+
+**For anyone else looking to generate the shinyapp, you do not need to run `internal.R`**
 
 The dataviz folder contains code to create a Shiny app for an interactive 
 data visualization used on the [indicator website](http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html).
