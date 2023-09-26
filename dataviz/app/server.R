@@ -97,7 +97,7 @@ shinyServer(function(input, output, session) {
   output$plot_rd <- renderGirafe({
     data <- district_data()
     hline <- indicator_summary$Disposal_Rate_kg[indicator_summary$Year == max_year]
-    girafe(code = print(gg_map(district_fort) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
+    girafe(code = print(gg_map(district) - gg_bar_rd(data, hline) + plot_layout(ncol = 2,
                                                                             widths = c(9, 4))), 
            width_svg = translate_in(p1.w), 
            height_svg = translate_in(p1.h), 

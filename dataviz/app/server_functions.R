@@ -8,13 +8,10 @@ div_css <- function(w, h, extra = ""){
 
 # ------------------------------ ggplots
 gg_map <- function(data){
-  yr <- max(data[["Year"]], na.rm = TRUE)
+  yr <- max(as.numeric(as.character(data$Year)), na.rm = TRUE)
   ggplot() +
-    geom_polygon_interactive(data = data, 
-                        aes(x = long, 
-                            y = lat, 
-                            group = group,
-                            tooltip = Label, 
+    geom_sf_interactive(data = data, 
+                        aes(tooltip = Label, 
                             data_id = Regional_District,
                             fill = Disposal_Rate_kg),
                         size = 0.3, color = "black") +
@@ -31,7 +28,7 @@ gg_map <- function(data){
 }
 
 gg_bar_rd <- function(data, hline){
-  yr <- max(data[["Year"]], na.rm = TRUE)
+  yr <- max(as.numeric(as.character(data$Year)), na.rm = TRUE)
   ggplot(data = na.omit(data) %>% as.data.frame,
          aes(x = Regional_District, 
              y = Disposal_Rate_kg,
