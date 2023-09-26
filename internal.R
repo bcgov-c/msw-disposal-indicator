@@ -20,7 +20,7 @@ source("R/helpers.R")
 # Get current data from BC Data Catalogue:
 # web link: "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 
-current_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
+old_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
 
 # Add new data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
