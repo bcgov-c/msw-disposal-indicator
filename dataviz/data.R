@@ -13,7 +13,6 @@ library(rmapshaper)
 indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
   mutate(Year = as.numeric(Year))
 
-
 ### OR if stored locally, bring in updated data this way
 indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv') 
 
@@ -121,12 +120,6 @@ indicator_summary$Label <- create_tooltip(indicator_summary)
 
 indicator <- indicator[which(!is.na(indicator$Disposal_Rate_kg)),]
 
-# fortify spatial data for ggiraph::geom_polygon_interactive
-# because ggiraph::geom_sf_interactive cannot be deployed currently
-# district_fort <- district %>%
-#   st_drop_geometry() |> 
-#   select(Regional_District, Label, Disposal_Rate_kg, Fill, Year) %>%
-#   mutate(Regional_District = as.character(Regional_District)) 
 
 # Save objects
 dir.create("dataviz/app/data", showWarnings = FALSE)
@@ -134,7 +127,6 @@ dir.create("dataviz/app/data", showWarnings = FALSE)
 saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
 saveRDS(district, file = "dataviz/app/data/district.rds")
-#saveRDS(district_fort, file = "dataviz/app/data/district_fort.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
 
 
