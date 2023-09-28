@@ -29,13 +29,21 @@ old_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
 data_2021 <- read_csv("data/2021-MSW-Disposal.csv") %>%
   mutate(Year = 2021,
          Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
-         Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
+         Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member)) %>%
+  rename("Regional_District" = Member) %>%
+  filter(Regional_District != "TOTAL BC")
 
-
-data_2020 <- data_2020 %>% 
-  mutate(Regional_District = match_rd_names(Member, old_msw$Regional_District, 1)) %>%
-  select(Regional_District, Year, Population, Total_Disposed_Tonnes)
-
+data_2021 = data_2021 %>%
+  rowwise() %>%
+  mutate(diff = list(data.frame(dist = stringdist(Regional_District,unique(old_msw$Regional_District)), 
+                                rd = unique(old_msw$Regional_District)))) %>%
+  mutate(new_name = list(diff %>% filter(dist == min(dist)) %>% select(rd))) %>%
+  ungroup()%>%
+  mutate("Regional_District" = unlist(new_name,use.names = F)) %>%
+  select(Regional_District,
+         Year, 
+         "Population" = `2021 Population`, 
+         "Total_Disposed_Tonnes" = `2021 Total Disposal (Tonnes)`)
 
 msw <- bind_rows(old_msw, data_2021)
 
