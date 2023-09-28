@@ -25,8 +25,8 @@ old_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
 # Add new data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-data_2020 <- read_csv("data/2020-MSW-Disposal.csv") %>%
-  mutate(Year = 2020,
+data_2021 <- read_csv("data/2021-MSW-Disposal.csv") %>%
+  mutate(Year = 2021,
          Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member))
 
@@ -36,7 +36,7 @@ data_2020 <- data_2020 %>%
   select(Regional_District, Year, Population, Total_Disposed_Tonnes)
 
 
-msw <- bind_rows(old_msw, data_2020)
+msw <- bind_rows(old_msw, data_2021)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 
