@@ -152,7 +152,7 @@ scale.y <- scale_y_continuous(breaks = seq(0, max(BC_data$Disposal_Rate_kg
                                                   , na.rm = TRUE) + 50)
                               , expand = c(0,0))
 
-scale.x <- scale_x_continuous(breaks = seq(min(BC_data$Year), max(BC_data$Year), by = 5))
+scale.x <- scale_x_continuous(breaks = c(seq(min(BC_data$Year), max(BC_data$Year)-6, by = 5), 2021))
 
 p + bars + labs + theme + scale.y + scale.x
 ```
@@ -182,7 +182,7 @@ ggplot(msw, aes(x = Year, y = Disposal_Rate_kg, fill = Population_Category)) +
         axis.text = element_text(size = 5), 
         axis.text.x = element_text(angle = 30, hjust = 0.8), 
         plot.margin = unit(c(0,0,0,0), "mm")) + 
-  scale_x_continuous(breaks = seq(1990, 2015, by = 5))
+  scale_x_continuous(breaks = c(seq(1990, 2015, by = 5), 2021))
 ```
 
 \begin{center}
