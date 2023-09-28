@@ -6,14 +6,14 @@ library(forcats)
 library(sf)
 library(bcdata)
 
-source("server_functions.R", local = TRUE)
+source("dataviz/app/server_functions.R", local = TRUE)
 
 # read data
-indicator <- readRDS("data/indicator.rds") 
-indicator_summary <- readRDS("data/indicator_summary.rds") 
-district <- readRDS("data/district.rds") 
-district_fort <- readRDS("data/district_fort.rds")
-link <- readRDS("data/link.rds")
+indicator <- readRDS("dataviz/app/data/indicator.rds") 
+indicator_summary <- readRDS("dataviz/app/data/indicator_summary.rds") 
+district <- readRDS("dataviz/app/data/district.rds") 
+district_fort <- readRDS("dataviz/app/data/district_fort.rds")
+link <- readRDS("dataviz/app/data/link.rds")
 
 line_size <- 0.5
 txt_size <- 13
