@@ -10,8 +10,8 @@ library(rmapshaper)
 
 # Read data 2 options here -----------------------------------------------------------------------------------------
 ### indicator data obtained from BC Data Catalogue 
-indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
-  mutate(Year = as.numeric(Year))
+# indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
+#   mutate(Year = as.numeric(Year))
 
 ### OR if stored locally, bring in updated data this way
 indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv') 
