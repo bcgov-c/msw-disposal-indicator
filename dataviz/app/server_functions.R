@@ -35,7 +35,9 @@ gg_bar_rd <- function(data, hline){
              fill = factor(Fill),
              tooltip = Label, 
              data_id = Regional_District)) + 
-    geom_bar_interactive(stat = "identity") +
+    geom_bar_interactive(stat = "identity",
+                         col = "black",
+                         linewidth = 0.3) +
     coord_flip(clip = 'off') +
     scale_fill_manual(values = c(hex_bar1_1, 
                                   hex_bar1_2), 
@@ -65,22 +67,24 @@ gg_bar_rd <- function(data, hline){
              size = 4, colour = hex_axis) 
 }
 
-gg_bar_year <- function(data){
+gg_bar_year <- function(data, color){
   ggplot(data = data, 
          aes(x = Year, 
              y = Disposal_Rate_kg,
              tooltip = Label,
              data_id = Year)) + 
-    geom_bar_interactive(stat = "identity", fill = hex_bar2) +
+    geom_bar_interactive(stat = "identity", fill = color,
+                         col = "black",
+                         linewidth = 0.5) +
     scale_x_discrete(drop = FALSE, 
-                     breaks = paste(seq(1990, max_year, 2)),
-                     labels = paste(seq(1990, max_year, 2)),
+                     breaks = c(seq(1990, max_year-6, 5), 2021),
+                     labels = c(seq(1990, max_year-6, 5), 2021),
                      expand = expansion(0.04)) +
     scale_y_continuous(expand = c(0,0), 
                        breaks = c(0, 250, 500, 750, 1000),
                        labels = c("0", "250", "500", "750", "1,000"),
                        limits = c(0, 1000)) +
-    scale_fill_manual(drop = FALSE) +
+    # scale_fill_manual(drop = FALSE) +
     labs(x = NULL, y = "Disposal (kg / person)") +
     theme_bw() +
     theme(legend.title = element_blank(),
