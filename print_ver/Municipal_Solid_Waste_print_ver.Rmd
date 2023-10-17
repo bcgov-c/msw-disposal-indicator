@@ -104,7 +104,7 @@ given year.
     waste per person---down `r abs(max_year_rate - comp_year_rate)` kg per person from `r comp_year`, though higher 
     than the low of `r min_rate` kg per person in `r min_rate_year`.
 -   Provincial initiatives which support decreases in waste disposal
-    rates include the CleanBC [Plastics Action Plan](https://cleanbc.gov.bc.ca/app/uploads/sites/436/2019/08/CleanBC_PlasticsActionPlan_ConsultationPaper_07252019_B.pdf), [organics
+    rates include the CleanBC [Plastics Action Plan](https://engage.gov.bc.ca/app/uploads/sites/121/2019/07/CleanBC_PlasticsActionPlan_ConsultationPaper.pdf), [organics
     diversion](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion), [food
     waste
     prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
@@ -127,7 +127,8 @@ library(ggplot2)
 library(grid)
 
 p <- ggplot(data = BC_data, aes(x = Year, y = Disposal_Rate_kg))
-bars <- geom_bar(stat = 'identity', fill = '#08519c')
+bars <- geom_bar(stat = 'identity', fill = '#08519c',
+                 width = 0.6)
 labs <- labs(title = paste0("Municipal Solid Waste disposal rates in British Columbia, 1990-", max_year)
              , y = "Disposal Rate (kg / person)")
 theme <- theme(panel.background = element_blank()
@@ -241,10 +242,10 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
     Columbia's [Recyclepedia
     App](https://www.rcbc.ca/recyclepedia/search)
 
--   [Product Stewardship in
+-   [Extended Producer Responsibility in
     B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
 
--   [Solid Waste Management Planning in
+-   [Garbage Management in
     B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
 
 -   [British Columbia\'s *Environmental Management
@@ -266,5 +267,5 @@ each file, as indicated in parentheses below.
 -   [Municipal Solid Waste Disposal,
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
-Published and Available On-Line at Environmental Reporting BC (September 2021):
+Published and Available On-Line at Environmental Reporting BC (October 2023):
 <http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html>
