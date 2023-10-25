@@ -6,6 +6,7 @@ library(forcats)
 library(sf)
 library(bcdata)
 library(leaflet)
+library(tidyverse)
 
 source("server_functions.R", local = TRUE)
 
