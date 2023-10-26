@@ -221,14 +221,19 @@ Waste that is reused or recycled is also not included.
 -   In some cases, waste from light industry may be included in the
     municipal solid waste disposal rate data as it cannot be
     disaggregated.
--   Regional District population estimates are sourced from [BC
+-   Regional district population estimates are sourced from [BC
     Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
-    Squamish-Lillooet and East
+    Alberni-Clayoquot, Metro Vancouver, Squamish-Lillooet and East
     Kootenay population estimates have been adjusted to take into account tourist populations, 
-    based on data submitted by the Regional Districts.
+    based on data submitted by the regional districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
     streams [together](http://www.cswm.ca/index.html).
+-   The 2020 data for Thompson-Nicola Regional District was corrected as requested 
+    by the regional district. The correction decreased the regional district’s total 
+    tonnage of waste disposed from 94,972 to 90,995, and the per capita tonnage from 671 to 644.
+-   The 2020 data for Regional District of Central Kootenay was also corrected as requested by the regional        district. The correction increased the regional district’s total tonnage of waste disposed from 28,362 to      31,292, and the per capita tonnage from 444 to 490.
+-   These two corrections canceled out each other so the total waste tonnage and per capita tonnage for B.C.       did not change for 2020. 
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch. Input from regional districts will
@@ -255,9 +260,7 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
     (report and fact sheet); BC
     Stats (2012)](https://www2.gov.bc.ca/assets/gov/data/statistics/nature-environment/solid_waste_generation_2010_2025.pdf)
 
--   [British Columbia Ministry of Environment and Climate Change
-    Strategy 2021/22 -- 2023/24 Service Plan (April 2021)
-    (PDF)](https://www.bcbudget.gov.bc.ca/2021/sp/pdf/ministry/env.pdf)
+-   [British Columbia Ministry of Environment and Climate Change Strategy 2022/23 – 2024/25 Service Plan (February 2022) (PDF)](https://www.bcbudget.gov.bc.ca/2022/sp/pdf/ministry/env.pdf)
 
 ### Data
 
