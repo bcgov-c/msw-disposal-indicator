@@ -229,11 +229,10 @@ Waste that is reused or recycled is also not included.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
     streams [together](http://www.cswm.ca/index.html).
--   The 2020 data for Thompson-Nicola Regional District was corrected as requested 
-    by the regional district. The correction decreased the regional district’s total 
-    tonnage of waste disposed from 98,949 to 94,972, and the per capita tonnage from 671 to 644.
--   The 2020 data for Regional District of Central Kootenay was also corrected as requested by the regional        district. The correction increased the regional district’s total tonnage of waste disposed from 28,362 to      31,292, and the per capita tonnage from 444 to 490.
--   These two corrections canceled out each other so the total waste tonnage and per capita tonnage for B.C.       did not change for 2020. 
+-   The 2020 disposal tonnage for Thompson-Nicola Regional District and Regional District 
+    of Central Kootenay was updated in October 2023 based on new data provided by these regional 
+    districts and the updates are now included in the data presented. The updates were not large
+    enough to change the provincial disposal rate of 499 kg per person in 2020.
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch. Input from regional districts will
