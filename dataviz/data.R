@@ -10,11 +10,11 @@ library(rmapshaper)
 
 # Read data 2 options here -----------------------------------------------------------------------------------------
 ### indicator data obtained from BC Data Catalogue 
-# indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
-#   mutate(Year = as.numeric(Year))
+indicator <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc") |> 
+   mutate(Year = as.numeric(Year))
 
 ### OR if stored locally, bring in updated data this way
-indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv') 
+#indicator <- read_csv('out/BC_Municipal_Solid_Waste_Disposal.csv') 
 
 message("changed indicator Disposal_Rate_kg with value 0 to NA")
 indicator$Disposal_Rate_kg[which(indicator$Disposal_Rate_kg == 0)] <- NA_integer_
