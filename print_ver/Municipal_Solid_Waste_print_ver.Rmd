@@ -104,7 +104,7 @@ given year.
     waste per person---down `r abs(max_year_rate - comp_year_rate)` kg per person from `r comp_year`, though higher 
     than the low of `r min_rate` kg per person in `r min_rate_year`.
 -   Provincial initiatives which support decreases in waste disposal
-    rates include the CleanBC [Plastics Action Plan](https://cleanbc.gov.bc.ca/app/uploads/sites/436/2019/08/CleanBC_PlasticsActionPlan_ConsultationPaper_07252019_B.pdf), [organics
+    rates include the CleanBC [Plastics Action Plan](https://engage.gov.bc.ca/app/uploads/sites/121/2019/07/CleanBC_PlasticsActionPlan_ConsultationPaper.pdf), [organics
     diversion](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/organic-waste-diversion), [food
     waste
     prevention](https://www2.gov.bc.ca/gov/content/environment/waste-management/food-and-organic-waste/prevent-food-waste),
@@ -127,7 +127,8 @@ library(ggplot2)
 library(grid)
 
 p <- ggplot(data = BC_data, aes(x = Year, y = Disposal_Rate_kg))
-bars <- geom_bar(stat = 'identity', fill = '#08519c')
+bars <- geom_bar(stat = 'identity', fill = '#08519c',
+                 width = 0.6)
 labs <- labs(title = paste0("Municipal Solid Waste disposal rates in British Columbia, 1990-", max_year)
              , y = "Disposal Rate (kg / person)")
 theme <- theme(panel.background = element_blank()
@@ -152,7 +153,7 @@ scale.y <- scale_y_continuous(breaks = seq(0, max(BC_data$Disposal_Rate_kg
                                                   , na.rm = TRUE) + 50)
                               , expand = c(0,0))
 
-scale.x <- scale_x_continuous(breaks = seq(min(BC_data$Year), max(BC_data$Year), by = 5))
+scale.x <- scale_x_continuous(breaks = c(seq(min(BC_data$Year), max(BC_data$Year)-6, by = 5), 2021))
 
 p + bars + labs + theme + scale.y + scale.x
 ```
@@ -182,7 +183,7 @@ ggplot(msw, aes(x = Year, y = Disposal_Rate_kg, fill = Population_Category)) +
         axis.text = element_text(size = 5), 
         axis.text.x = element_text(angle = 30, hjust = 0.8), 
         plot.margin = unit(c(0,0,0,0), "mm")) + 
-  scale_x_continuous(breaks = seq(1990, 2015, by = 5))
+  scale_x_continuous(breaks = c(seq(1990, 2015, by = 5), 2021))
 ```
 
 \begin{center}
@@ -220,14 +221,18 @@ Waste that is reused or recycled is also not included.
 -   In some cases, waste from light industry may be included in the
     municipal solid waste disposal rate data as it cannot be
     disaggregated.
--   Regional District population estimates are sourced from [BC
+-   Regional district population estimates are sourced from [BC
     Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
-    Squamish-Lillooet and East
+    Alberni-Clayoquot, Metro Vancouver, Squamish-Lillooet and East
     Kootenay population estimates have been adjusted to take into account tourist populations, 
-    based on data submitted by the Regional Districts.
+    based on data submitted by the regional districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
     streams [together](http://www.cswm.ca/index.html).
+-   The 2020 disposal tonnage for Thompson-Nicola Regional District and Regional District 
+    of Central Kootenay was updated in October 2023 based on new data provided by these regional 
+    districts and the updates are now included in the data presented. The updates were not large
+    enough to change the provincial disposal rate of 499 kg per person in 2020.
 
 Regional districts that wish to update the waste disposal data reported
 above should contact the Environmental Standards Branch. Input from regional districts will
@@ -241,10 +246,10 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
     Columbia's [Recyclepedia
     App](https://www.rcbc.ca/recyclepedia/search)
 
--   [Product Stewardship in
+-   [Extended Producer Responsibility in
     B.C.](http://www2.gov.bc.ca/gov/content?id=BEBA70369C274C8FBA4FB42BE828A9EB)
 
--   [Solid Waste Management Planning in
+-   [Garbage Management in
     B.C.](http://www2.gov.bc.ca/gov/content?id=CBCECCAABAA2401B9FB3B7CE63129709)
 
 -   [British Columbia\'s *Environmental Management
@@ -254,9 +259,7 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
     (report and fact sheet); BC
     Stats (2012)](https://www2.gov.bc.ca/assets/gov/data/statistics/nature-environment/solid_waste_generation_2010_2025.pdf)
 
--   [British Columbia Ministry of Environment and Climate Change
-    Strategy 2021/22 -- 2023/24 Service Plan (April 2021)
-    (PDF)](https://www.bcbudget.gov.bc.ca/2021/sp/pdf/ministry/env.pdf)
+-   [British Columbia Ministry of Environment and Climate Change Strategy 2022/23 – 2024/25 Service Plan (February 2022) (PDF)](https://www.bcbudget.gov.bc.ca/2022/sp/pdf/ministry/env.pdf)
 
 ### Data
 
@@ -266,5 +269,5 @@ each file, as indicated in parentheses below.
 -   [Municipal Solid Waste Disposal,
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
-Published and Available On-Line at Environmental Reporting BC (September 2021):
+Published and Available On-Line at Environmental Reporting BC (October 2023):
 <http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html>

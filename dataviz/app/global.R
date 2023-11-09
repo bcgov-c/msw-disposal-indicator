@@ -5,6 +5,8 @@ library(patchwork)
 library(forcats)
 library(sf)
 library(bcdata)
+library(leaflet)
+library(tidyverse)
 
 source("server_functions.R", local = TRUE)
 
@@ -12,7 +14,6 @@ source("server_functions.R", local = TRUE)
 indicator <- readRDS("data/indicator.rds") 
 indicator_summary <- readRDS("data/indicator_summary.rds") 
 district <- readRDS("data/district.rds") 
-district_fort <- readRDS("data/district_fort.rds")
 link <- readRDS("data/link.rds")
 
 line_size <- 0.5
@@ -39,15 +40,33 @@ hex_select <- "#bebada"  #"#808080"
 hex_axis <- "#909090"
 hex_na <- "grey80"
 
-tinter_shader <- function(hex, steps = 10, crop = 2){
-  shades <- rev(grDevices::colorRampPalette(c(hex, "black"))(steps))[-(1:crop)]
-  tints <- rev(grDevices::colorRampPalette(c(hex, "white"))(steps))[-(1:crop)]
-  c(tints, rev(shades))
-}
+#Create blue color palatte based on indicator data
+blue_custom = colorRamp(c("lightblue", "black"))
 
-hex_choro <- "#a6cee3"
-# tints <- tinter_shader(hex_choro)
-tints <- c('#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b')
+pal = colorQuantile(blue_custom, domain = indicator$Disposal_Rate_kg, n = 9)
+
+indicator = indicator %>%
+  mutate(pal = pal(Disposal_Rate_kg))
+
+tints = indicator %>%
+  group_by(pal) %>%
+  summarise(pal = unique(pal), Disposal_Rate_kg = mean(Disposal_Rate_kg)) %>%
+  arrange(Disposal_Rate_kg) %>%
+  pull(pal)
+
+
+district = district %>%
+  mutate(pal = pal(Disposal_Rate_kg))
+
+# tinter_shader <- function(hex, steps = 10, crop = 2){
+#   shades <- rev(grDevices::colorRampPalette(c(hex, "black"))(steps))[-(1:crop)]
+#   tints <- rev(grDevices::colorRampPalette(c(hex, "white"))(steps))[-(1:crop)]
+#   c(tints, rev(shades))
+# }
+# 
+# hex_choro <- "#a6cee3"
+# # tints <- tinter_shader(hex_choro)
+# tints <- c('#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b')
 
 p1.w <- 900
 p1.h <- 550

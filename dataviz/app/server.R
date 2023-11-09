@@ -18,7 +18,8 @@ shinyServer(function(input, output, session) {
   rv_data <- reactiveValues(sort_by = "rate",
                             yearly = indicator_summary,
                             links = NULL,
-                            title = bc_title)
+                            title = bc_title,
+                            colour = "#6C878F")
   
   observeEvent(input$sort_name, {rv_data$sort_by = "name"})
   observeEvent(input$sort_rate, {rv_data$sort_by = "rate"})
@@ -28,6 +29,7 @@ shinyServer(function(input, output, session) {
     if(!is.null(input$plot_rd_selected) && input$plot_rd_selected != stikine){
       rv_data$yearly = indicator[which(indicator$Regional_District %in% input$plot_rd_selected),]
       rv_data$links = link[which(link$Local_Govt_Name %in% input$plot_rd_selected),]
+      rv_data$colour = district$pal[which(district$Regional_District %in% input$plot_rd_selected)]
     }
   })
   
@@ -36,6 +38,7 @@ shinyServer(function(input, output, session) {
       rv_data$yearly = indicator_summary
       rv_data$links = NULL
       rv_data$title = bc_title
+      rv_data$colour = "#6C878F"
     }
   })
   
@@ -111,8 +114,9 @@ shinyServer(function(input, output, session) {
   
   output$plot_year <- renderGirafe({
     data <- rv_data$yearly
+    color = rv_data$colour
     req(data)
-    girafe(code = print(gg_bar_year(data)),
+    girafe(code = print(gg_bar_year(data, color)),
            width_svg = translate_in(p2.w), 
            height_svg = translate_in(p2.h)) %>%
       girafe_options(opts_hover(css = paste0("fill: ", hex_hover, ";")),
