@@ -1,16 +1,21 @@
 ---
 topic: sustainability
-output: envreportutils.internal::print_ver
+output:
+  html_document:
+    self_contained: false
+  pdf_document: default
+  word_document: default
 params:
   input_source:
-    label: "Input Source:"
+    label: 'Input Source:'
     value: local
-    choices: [bcdc,local]
+    choices:
+    - bcdc
+    - local
     input: select
 ---
-
 <!--
-Copyright 2018 Province of British Columbia
+Copyright 2024 Province of British Columbia
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,11 +38,12 @@ See the License for the specific language governing permissions and limitations 
 
 library(dplyr)
 library(readr)
+library(here)
 
 input <- if (params$input_source == "bcdc") {
   "https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc/resource/d2648733-e484-40f2-b589-48192c16686b/download/bcmunicipalsolidwastedisposal.csv"
 } else if (params$input_source == "local") {
-  "./out/BC_Municipal_Solid_Waste_Disposal.csv"
+  here("out", "BC_Municipal_Solid_Waste_Disposal.csv")
 } else {
   stop("Invalid input source")
 }
@@ -196,7 +202,7 @@ ggplot(msw, aes(x = Year, y = Disposal_Rate_kg, fill = Population_Category)) +
 \item
 Disposal rates reported here include waste from the residential sector,
 institutional, commercial, and light industrial sources as well as waste
-from construction, demolition and renovation activities.
+from construction, renovation, and demolition activities.
 \item
 Disposal rates do not include hazardous, biomedical, or agricultural
 waste, motor vehicles or components, heavy industry, or contaminated
@@ -223,8 +229,9 @@ Waste that is reused or recycled is also not included.
     disaggregated.
 -   Regional district population estimates are sourced from [BC
     Stats](https://www2.gov.bc.ca/gov/content?id=36D1A7A4BEE248598281824C13CB65B6).
-    Alberni-Clayoquot, Metro Vancouver, Squamish-Lillooet and East
-    Kootenay population estimates have been adjusted to take into account tourist populations, 
+    Alberni-Clayoquot, Metro Vancouver, Squamish-Lillooet, Fraser Fort George, Central Kootenay, and East 
+    Kootenay Regional Districts and Northern Rockies Regional Municipality population estimates have been 
+    adjusted to take into account tourist populations, 
     based on data submitted by the regional districts.
 -   Disposal rates for Comox Valley and Strathcona are reported as one
     as they handle their waste
@@ -259,7 +266,7 @@ The  [**R**](http://www.r-project.org) code supporting this indicator is [availa
     (report and fact sheet); BC
     Stats (2012)](https://www2.gov.bc.ca/assets/gov/data/statistics/nature-environment/solid_waste_generation_2010_2025.pdf)
 
--   [British Columbia Ministry of Environment and Climate Change Strategy 2022/23 – 2024/25 Service Plan (February 2022) (PDF)](https://www.bcbudget.gov.bc.ca/2022/sp/pdf/ministry/env.pdf)
+-   [British Columbia Ministry of Environment and Climate Change Strategy 2024/25 – 2026/27 Service Plan (February 2024) (PDF)](https://www.bcbudget.gov.bc.ca/2022/sp/pdf/ministry/env.pdf)
 
 ### Data
 
@@ -269,5 +276,5 @@ each file, as indicated in parentheses below.
 -   [Municipal Solid Waste Disposal,
 1990-`r max_year`](https://catalogue.data.gov.bc.ca/dataset/d21ed158-0ac7-4afd-a03b-ce22df0096bc) (Licence: [Open Government Licence - British Columbia](http://www2.gov.bc.ca/gov/content?id=A519A56BC2BF44E4A008B33FCF527F61))
 
-Published and Available On-Line at Environmental Reporting BC (October 2023):
+Published and Available On-Line at Environmental Reporting BC (`r format(Sys.Date(), "%B %Y")`):
 <http://www.env.gov.bc.ca/soe/indicators/sustainability/municipal-solid-waste.html>

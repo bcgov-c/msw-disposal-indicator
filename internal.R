@@ -1,4 +1,4 @@
-# Copyright 2018 Province of British Columbia
+# Copyright 2024 Province of British Columbia
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@ library(dplyr)
 library(ggplot2)
 library(bcdata)
 library(stringdist)
+library(stringi)
 
 source("R/helpers.R")
 
@@ -26,14 +27,15 @@ old_msw <- bcdc_get_data("d21ed158-0ac7-4afd-a03b-ce22df0096bc")
 # Add new data -----------------------------------------------------------
 ## Data obtained from program area and put in 'data/' folder
 
-data_2021 <- read_csv("data/2021-MSW-Disposal.csv") %>%
-  mutate(Year = 2021,
+data_2022 <- read_csv("data/2022-MSW-Disposal.csv") %>%
+  mutate(Year = 2022,
          Member = recode(Member, "Comox Valley Regional District (Strathcona)" = "Comox-Strathcona"),
          Member = gsub("^Regional District( of)? | Regional (District|Municipality)$", "", Member)) %>%
   rename("Regional_District" = Member) %>%
-  filter(Regional_District != "TOTAL BC")
+  filter(Regional_District != "TOTAL BC") %>%
+  arrange(stri_trans_totitle(Regional_District))
 
-data_2021 = data_2021 %>%
+data_2022 <- data_2022 %>%
   rowwise() %>%
   mutate(diff = list(data.frame(dist = stringdist(Regional_District,unique(old_msw$Regional_District)), 
                                 rd = unique(old_msw$Regional_District)))) %>%
@@ -42,10 +44,10 @@ data_2021 = data_2021 %>%
   mutate("Regional_District" = unlist(new_name,use.names = F)) %>%
   select(Regional_District,
          Year, 
-         "Population" = `2021 Population`, 
-         "Total_Disposed_Tonnes" = `2021 Total Disposal (Tonnes)`)
+         "Population" = `2022 Population`, 
+         "Total_Disposed_Tonnes" = `2022 Total Disposal (Tonnes)`)
 
-msw <- bind_rows(old_msw, data_2021)
+msw <- bind_rows(old_msw, data_2022)
 
 ## Combine Comox and Strathcona -----------------------------------------------
 
