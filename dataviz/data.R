@@ -128,14 +128,3 @@ saveRDS(indicator, file = "dataviz/app/data/indicator.rds")
 saveRDS(indicator_summary, file = "dataviz/app/data/indicator_summary.rds")
 saveRDS(district, file = "dataviz/app/data/district.rds")
 saveRDS(link, file = "dataviz/app/data/link.rds")
-
-
-
-
-
-
-
-
-
-
-

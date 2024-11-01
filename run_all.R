@@ -1,4 +1,4 @@
-# Copyright 2018 Province of British Columbia
+# Copyright 2024 Province of British Columbia
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,8 @@
 
 source("internal.R")
 
-# mon_year <- format(Sys.Date(), "%b%Y")
-mon_year <- "Sept2021"
+mon_year <- format(Sys.Date(), "%b%Y")
+#mon_year <- "Sept2021"
 outfile <- paste0("envreportbc_municipal_solid_waste_", mon_year, ".pdf")
 
 rmarkdown::render("print_ver/Municipal_Solid_Waste_print_ver.Rmd",
